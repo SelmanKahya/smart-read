@@ -1,5 +1,5 @@
 # ebook-uaa
-Source code for Ebook User Activity Assessment project.
+Code repository for Ebook User Activity Assessment project.
 
 ## How to
 Follow the instructions to use the extension on your Chrome browser:
