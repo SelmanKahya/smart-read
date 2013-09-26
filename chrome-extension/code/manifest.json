@@ -1,8 +1,8 @@
 {
-  "name": "Chrome Extension Skeleton",
+  "name": "Ebook-UAA",
   "version": "0.1.0",
   "manifest_version": 2,
-  "description": "Skeleton with basic libraries to use as a basis for Chrome extensions",
+  "description": "Ebook User Activity Assessment project - Chrome extension.",
   "icons": {
     "128": "images/icon.png"
   },
