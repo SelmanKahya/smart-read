@@ -28,6 +28,8 @@
     }
   ],
   "permissions": [
+      "http://*/",
+      "tabs"
   ],
   "web_accessible_resources": [
     "js/*",
