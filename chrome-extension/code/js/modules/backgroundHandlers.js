@@ -1,21 +1,23 @@
-define(['util/template', 'stats'], function(template, stats) {
+define(['util/template', 'status'], function(template, status) {
 
-  // Handler prototype:
-  // function handle<REQUEST.CMD>(args, sender, sendResponse)
-  //
-  // See util/messaging.js for more details.
-  //
+    // Handler prototype:
+    // function handle<REQUEST.CMD>(args, sender, sendResponse)
+    //
+    // See util/messaging.js for more details.
+    //
 
-  return {
+    return {
 
-    handleGetHtml: function(args, sender, sendResponse) {
-      sendResponse(template.compileFromFile(args.template, args.data));
-    },
+        handleGetHtml: function(args, sender, sendResponse) {
+            sendResponse(template.compileFromFile(args.template, args.data));
+        },
 
-    handleGetPopupStats: function(args, sender, sendResponse) {
-      sendResponse({ counter: stats.getNext() });
-    }
+        handleGetExtensionStatus: function(args, sender, sendResponse) {
+            sendResponse({status: status.getStatus()});
+        },
 
-  };
-
+        handleToggleExtensionStatus: function(args, sender, sendResponse) {
+            sendResponse({toggleFunc: status.toggle()});
+        }
+    };
 });
