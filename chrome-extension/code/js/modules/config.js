@@ -1,5 +1,8 @@
 define({
   /* Here you define static configuration parameters of your extension. */
-  greeting: 'Hi there!',
+  popup: {
+      appName: 'Ebook-UAA',
+      seeActivityLink: '#'
+  },
   showTime: 2000 /* ms */
 });
