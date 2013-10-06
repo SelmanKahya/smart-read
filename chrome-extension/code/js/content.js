@@ -1,33 +1,30 @@
 requirejs.config(requirejsConfig);
 
-requirejs(['jquery', 'config', 'util/messaging', 'util/messagingClient'],
-function(   $,        config,   messaging,        client) {
+requirejs(['jquery', 'config', 'util/messaging', 'util/messagingClient'], function(   $,        config,   messaging,        client) {
 
-  // uncomment the following line if content should be handling some requests
-  // sent from background (when appropriate handler is implemented in
-  // contentHandlers.js
+    // uncomment the following line if content should be handling some requests
+    // sent from background (when appropriate handler is implemented in
+    // contentHandlers.js
+    // messaging.contentInitialize();
 
-  // messaging.contentInitialize();
-
-  client.sendBroadcast({
-    cmd: 'GetHtml',
-    args: {
-      template: 'content',
-      data: {
-        imageUrl: chrome.extension.getURL('/images/icon.png')
-      }
-    }
-  }, function(response) {
     $(function() {
-      $(response)
-        .hide()
-        .appendTo('body')
-        .fadeIn('slow')
-        .delay(config.showTime)
-        .fadeOut('slow', function() {
-          $(this).remove();
+
+        client.sendBroadcast({ cmd: 'GetExtensionStatus' }, function(result) {
+
+            // double click event
+            var doubleClicked = function(){
+                var keyword = window.getSelection().toString();
+                $.ajax({
+                    type: "PUT",
+                    url: "http://localhost:3000/activity",
+                    data: {type: 'dblclick', content: keyword}
+                }).done(function(result) {});
+            }
+
+            // IF extension is started, attach all the events
+            if(result.status){
+                document.body.addEventListener('dblclick', doubleClicked);
+            }
         });
     });
-  });
-
 });
