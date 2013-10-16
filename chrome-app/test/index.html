@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+
+$(function() {
+	$( "#dialog" ).dialog({
+		autoOpen: false,
+		show: {
+			effect: "blind",
+			duration: 100
+		},
+			hide: {
+			effect: "blind",
+			duration: 100
+		},
+		
+		width: 600,
+		height: 350,
+		modal: true,
+        open: function(event, ui) { $('.ui-widget-overlay').bind('click', function(){ $("#dialog").dialog('close'); }); }
+	});
+});
+
+function getMean(){
+	word = window.getSelection().toString();
+	if(word==""|| word=="Enter a word")
+		return;
+	ajax = new XMLHttpRequest();
+	ajax.onreadystatechange	= function(){
+		if(ajax.readyState==4 && ajax.status==200){			
+			var massaged = ajax.responseText.replace(/^[^(]+\(|[^}]+$/g, ''), res;
+            try {
+                res = JSON.parse( massaged );
+            } catch( e ) {
+                res = new Function( 'return ' + massaged )();
+            }
+			
+			var result = process(res);
+			render(result);
+		}
+	}
+	
+	var encoded = encodeURIComponent("http://www.google.com/dictionary/json?callback=process&sl=en&tl=en&restrict=pr,de&client=te&q=" + word);
+	ajax.open("GET","proxy.php?url=" + encoded,true);
+	ajax.send(null);
+}
+
+function process(json_obj){
+	var result = {
+		word : json_obj.query,
+		sound : null,
+		pronunciation : null,
+		primary_means : null
+	};
+	
+	for (var prop in json_obj){
+		if(prop=="primaries"){
+			var stuff = json_obj["primaries"][0];
+			
+			// get pronunciation and sound
+			var isa = "";
+			var sound;
+			var pro = stuff["terms"];
+			for(var i=0;i<pro.length;i++){
+				if(pro[i]["type"]=="phonetic"){
+					isa+=pro[i]["text"];
+					isa+=" ";
+				}
+				else if(pro[i]["type"]=="sound"){
+					sound = pro[i]["text"];
+				}
+			}
+			result.sound = sound;
+			result.pronunciation = isa;
+			
+			// get meaning array
+			var primary_mean = stuff["entries"];
+			var primary_mean_list = [];
+			var k=0;
+			for(var i=0;i<primary_mean.length;i++){
+				if(primary_mean[i]["type"]=="meaning"){
+					primary_mean_list[k]=primary_mean[i]["terms"][0]["text"];
+					k++;
+				}
+			}
+			result.primary_means = primary_mean_list;
+		}
+		else
+			continue;
+	}
+	
+	return result;
+}
+
+function render(result){
+	if(result.primary_means){
+		$("#keyword").html(result.word);
+		$("#pronunciation").html(result.pronunciation);
+		$("#sound").html('<a href="' + result.sound + '">Sound</a>');
+		$("#definition").html(result.primary_means[0]);
+		$("#dialog").dialog( "open" );
+	}
+}
+
+$(document).ready(function(){
+	document.body.addEventListener('dblclick', getMean);
+});
+</script>
+</head>
+<body>
+
+<div id="input">
+    <input id="word" type="text" name="word" value="Enter a word"/>
+    <button id="btt" type="find" >Get Meaning</button>
+</div>
+ 
+<div id="dialog" title="Word Lookup">
+	<h1>Word: <span id="keyword"></span></h1>
+	<b>Pronunciation: <span id="pronunciation"></span> - <span id="sound"></span></b> <hr>
+	<p id="definition"></p>
+</div>
+test
+</body>
+</html>

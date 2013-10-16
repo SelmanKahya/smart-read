@@ -1,0 +1,225 @@
+<html>
+	<head xmlns="http://www.w3.org/2000/xmlns/" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:ev="http://www.w3.org/2001/xml-events">
+
+		
+		<meta charset="UTF-8">
+
+		<title>Readium</title>
+
+		<!-- Le styles -->
+		<link rel="stylesheet" type="text/css" href="/css/viewer_manifest.css">
+
+		<!-- Only include Modernizr at the top, everything else is at the bottom -->
+		<script src="/lib/modernizr-2.5.3.min.js" type="text/javascript" ></script>
+		
+	</head>
+	<body>
+
+ 		<div class="navbar navbar-fixed-top" id='toolbar-el'><!-- le top bar -->
+
+			<div class="navbar-inner" id="top-bar">
+				<div class="container" style="width: 100%">
+					<a title="Readium Info" accesskey="i" class="brand" data-toggle="modal" href="#readium-info" id='bar-logo' role="button">
+						<h2 id="logo-replace">Readium</h2>
+					</a>
+
+					<ul class="nav pull-right">
+						<li class="divider-vertical stubby"></li>
+						<li>
+							<a title="Library" accesskey="b" href="/views/library.html" id="back-to-lib-button" role="button">
+								<img src="/images/top_bar/ico_library.png" class="nav-icon" alt="Library"/>
+								<span class="offscreenText">Library</span>
+							</a>
+						</li>
+						<li>
+							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
+								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt="Table of contents"/>
+								<span class="offscreenText">Table of contents</span>
+							</a>
+						</li>
+						<li>
+							<a title="Play/pause media overlays" accesskey="m" href="#" id='play-mo-btn' role="button">
+								<img src="/images/top_bar/ico_tts.png" class="nav-icon" alt="Play/pause media overlays"/>
+								<span class="offscreenText">Play/pause audio narration</span>
+							</a>
+						</li>
+                        <li>
+                            <span class="offscreenText" id="mo-volume-slider-OT">Volume for audio narration. Press F7 to increase, Shift + F7 to decrease.</span>
+                            <a href="#" id='mo-volume-btn-group' role="slider">
+                                <img src="/images/top_bar/ico_volume.png" id="mo-volume-btn" class="nav-icon" title="Mute" alt="Mute" accesskey="a"/>
+                                <img src="/images/top_bar/ico_volume_muted.png" id="mo-volume-muted-btn" class="nav-icon" title="Unmute" alt="Unmute"  accesskey="a"/>
+                                <input id="mo-volume-slider" type="range"  min="0" max="1.0" value="1.0" step=".05" title="Volume" 
+                                    aria-valuemin="0" aria-valuemax="1.0"/>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="offscreenText" id="mo-rate-slider-OT">Rate for audio narration. Press F9 to increase, Shift + F9 to decrease.</span>
+                            <a href="#" id='mo-rate-btn-group' role="slider">
+                                <img src="/images/top_bar/ico_rate.png" id="mo-rate-btn" class="nav-icon" title="Reset rate" alt="Reset rate" accesskey="k"/>
+                                <input id="mo-rate-slider" type="range"  min="0.5" max="2.5" value="1.0" step=".05" title="Rate"
+                                    aria-valuemin="0.5" aria-valuemax="2.5"/>
+                            </a>
+                        </li>
+						<li class="divider-vertical stubby"></li>
+						<li>
+							<a title="Options" accesskey="o" href="#viewer-settings-modal" id="options-btn" data-toggle="modal" role="button">
+								<img src="/images/top_bar/options.png" class="nav-icon" alt=""/>
+								<span class="offscreenText">Options</span>
+							</a>
+						</li>
+						<li>
+							<a accesskey="n" href="#" id="nightmode-btn" role="button">
+								<img src="/images/top_bar/ico_nightmode_toggle_off.png" class="nav-icon" id="day-to-night-ico" alt=""/>
+								<img src="/images/top_bar/ico_nightmode_toggle_on.png" class="nav-icon" id="night-to-day-ico" alt=""/>
+								<span id="nmOT" class="offscreenText"></span>
+							</a>
+						</li>
+						<li>
+							<a accesskey="f" href="#" id="fs-toggle-btn" role="button">
+								<img src="/images/top_bar/ico_fs_toggle_on.png" class="nav-icon" id="go-to-fs-ico" alt=""/>
+								<img src="/images/top_bar/ico_fs_toggle_off.png" class="nav-icon" id="leave-fs-ico" alt=""/>
+								<span id="fsOT" class="offscreenText"></span>
+							</a>
+						</li>
+						<li class="divider-vertical"></li>
+						<li style="margin-right: 15px">
+							<a title="Hide Readium user interface" accesskey="x" id="hide-toolbar-button" class="toggle-bar-btn" role="button">
+		 						<img src="/images/top_bar/ico_closeUI.png" class="nav-icon" alt=""/>
+								<span class="offscreenText">Hide Readium user interface</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+			<h2 id="toolbar-title"></h2>
+			<span title="Show Readium user interface" accesskey="v" tabindex="0" id="show-toolbar-button" role="button" >
+ 				<img src="/images/top_bar/ico_openUI.png" class="nav-icon" alt="Show Readium user interface"/>
+				<span class="offscreenText">Show Readium user interface</span>
+			</span>
+    	</div><!-- end le top bar -->
+
+		<div id="below-navbar">
+    		<div id='readium-toc' style="display: none">
+    			<div class="offscreenText"> Table of Contents Start </div>
+    			<div id="toc-header">
+    				<span id="close-toc-button" tabindex="0" role="button">
+						<span class="offscreenText">Close Table of Contents</span>
+					</span>
+	    		</div>
+	    		<div id="toc-body">
+	    		</div>
+	    		<div class="offscreenText"> Table of Contents End </div>
+	 		</div> 
+
+ 			<div id="readium-right-content">
+
+		    	<a title="Next Page" id="next-page-button" href="#" role="button" accesskey="2">
+					<span class="offscreenText">Next Page</span>
+				</a>
+				<a title="Previous Page" id="prev-page-button" href="#" role="button" accesskey="1">
+					<span class="offscreenText">Previous Page</span>
+				</a>
+				<div id="readium-book-view-el">
+		 			<div id='page-wrap' class='clearfix'>
+						<div id="container" class='clearfix'></div>
+						<div id='spine-divider'></div>
+					</div>
+				</div>
+			</div> <!-- end readium-right-content -->
+
+			<div class="modal fade" id="viewer-settings-modal"  style="display: none"><!-- le settings modal -->
+				<div class="offscreenText"> Options Start </div>
+				<div id='settings-margin'>
+					<div id="preview-text">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Donec tempus, nunc vel rutrum posuere, quam magna imperdiet elit, eget facilisis mauris tellus non eros. Cras in felis sed orci aliquam sagittis. Cras adipiscing rhoncus justo commodo sodales. Phasellus vel mauris vel ipsum semper feugiat at ut sapien. Mauris consectetur aliquam aliquam. Nunc viverra dictum enim sit amet cursus.
+
+						Proin adipiscing rutrum ante. Vivamus tristique nisl quis neque viverra facilisis. Maecenas quis quam risus, at lacinia quam. Maecenas imperdiet, eros quis vulputate rutrum, metus neque sollicitudin libero, vel lobortis elit nisl sit amet lectus. Proin metus elit, mollis in fringilla sit amet, fermentum et odio. Sed sapien metus, consequat a bibendum et, eleifend eu mi. Praesent interdum lorem non risus sollicitudin vitae viverra nisi accumsan. Donec felis odio, tempus quis venenatis ac, auctor vitae sapien. Aenean quis nisl risus. Nulla sed pellentesque mauris.
+					</div>
+					<div>
+						<h3 tabindex="-1" id="setting-header-font-size" class="setting-header"><span id="i18n_font_size">FONT SIZE</span></h3>
+						<div class="clearfix">
+							<span id="font-size-icon"></span>
+							<input type="range" id="font-size-input" min="1" max="20" title="Font size"/>
+						</div>
+					</div>
+					<div>
+						<h3 id="setting-header-margins-legend" class="setting-header"><span id="i18n_margins">MARGINS</span></h3>
+						<div role="radiogroup" aria-labelledby="setting-header-margins-legend" class="clearfix" id="margin-radio-wrapper">
+							<span aria-labelledby="margin-option-1-lbl" role="radio" id="margin-option-1" class="margin-radio clickable">
+								<span id="margin-option-1-lbl" class="offscreenText">Very Narrow</span>
+							</span>
+							<span aria-labelledby="margin-option-2-lbl" role="radio" id="margin-option-2" class="margin-radio clickable">
+								<span id="margin-option-2-lbl" class="offscreenText">Narrow</span>
+							</span>
+							<span aria-labelledby="margin-option-3-lbl" role="radio" id="margin-option-3" class="margin-radio clickable">
+								<span id="margin-option-3-lbl" class="offscreenText">Normal</span>
+							</span>
+							<span aria-labelledby="margin-option-4-lbl" role="radio" id="margin-option-4" class="margin-radio clickable">
+								<span id="margin-option-4-lbl" class="offscreenText">Wide</span>
+							</span>
+							<span aria-labelledby="margin-option-5-lbl" role="radio" id="margin-option-5" class="margin-radio clickable">
+								<span id="margin-option-5-lbl" class="offscreenText">Very Wide</span>
+							</span>
+						</div>
+					</div>
+					<div>
+						<h3 id="setting-header-color-legend" class="setting-header"><span id="i18n_text_and_background_color">TEXT AND BACKGROUND COLOR</span></h3>
+						<div role="radiogroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="clearfix">
+							<span role="radio" id="default-theme-option" class="theme-option default-theme clickable"><span id="i18n_black_and_white">Black and White</span></span>
+							<span role="radio" id="night-theme-option" class="theme-option night-theme clickable"><span id="i18n_arabian_nights">Arabian Nights</span></span>
+							<span role="radio" id="parchment-theme-option" class="theme-option parchment-theme clickable"><span id="i18n_sands_of_dune">Sands of Dune</span></span>
+							<span role="radio" id="ballard-theme-option" class="theme-option ballard-theme clickable"><span id="i18n_ballard_blues">Ballard Blues</span></span>
+							<span role="radio" id="vancouver-theme-option" class="theme-option vancouver-theme clickable"><span id="i18n_vancouver_mist">Vancouver Mist</span></span>
+						</div>
+					</div>
+					<div>
+						<h3 id="setting-header-display-legend" class="setting-header"><span id="i18n_display_format">DISPLAY FORMAT</span></h3>
+						<div role="radiogroup" aria-labelledby="setting-header-display-legend" class="clearfix" id="two-up-options">
+							<span role="radio" id="one-up-option" class="simple-radio clickable"><span id="i18n_single_pages">Single Pages</span></span>
+							<span role="radio" id="two-up-option" class="simple-radio clickable"><span id="i18n_double_pages">Double Pages</span></span>
+						</div>
+					</div>
+				</div>
+				<div id="settings-form-footer" class="clearfix">
+					<button accesskey="c" class='btn btn-inverse' id="cancel-settings-but"><span id="i18n_cancel">Cancel</span></button>
+					<button accesskey="s" class='btn btn-inverse' id="save-settings-but"><span id="i18n_save_settings">Save Settings</span></button>
+				</div>
+				<div class="offscreenText"> Options End </div>
+			</div><!-- end le settings modal -->
+
+
+			<div class="modal fade" id="readium-info"  style="display: none"><!-- le info modal -->
+				<div class="offscreenText"> Info Start </div>
+				<div>
+					<img src="/images/info_modal/about_readium_logo.png" alt="About Readium logo">
+				</div>
+				<div>
+					<!-- UPDATE VERSION NUMBER -->
+					<h3 tabindex="-1" id="version-info">Version 0.9 Release Date 01.29.13</h3>
+				</div>
+				<p>
+					<span id="i18n_html_readium_tm_a_project">Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the <a href="http://readium.org/">project homepage</a>. To date, the project development has been lead by <a href="http://evidentpoint.com/">Evident Point</a> and <a href="http://www.bluefirereader.com/">Bluefire Productions</a>. To contribute visit the <a href="https://github.com/readium/readium">github repository</a></span>
+				</p>
+				<div>
+					<img src="/images/info_modal/partner_logos.png" alt="Readium partner logos">
+				</div>
+				<button class="offscreenText" data-dismiss="modal"> Close </button>
+				<div class="offscreenText"> Info End </div>
+			</div><!-- end le info modal -->
+		</div>
+
+		
+	    <script src="/lib/jquery-1.7.1.min.js" type="text/javascript" ></script>
+		<!-- This one file: contains a bunch of libs minified and concatenated together -->
+		<script src="/scripts/libs/plugins.js" type="text/javascript" ></script>
+
+		<script src='/scripts/88cbacc270051221adc863c954d11aae.js' type='text/javascript'></script>
+
+		<script src="/scripts/utils/google_analytics_loader.js" type="text/javascript"></script>
+
+		<!-- Mathjax has its own deal going on so leave it the F alone -->
+		<script src="/lib/mathjax/MathJax.js?config=readium" type="text/javascript"></script>
+		
+	</body>
+</html>

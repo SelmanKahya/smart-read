@@ -1,0 +1,162 @@
+{
+   "chrome_accept_languages": {
+      "message": "$CHROME$ accepts $languages$ languages",
+      "placeholders": {
+         "chrome": {
+            "content": "Chrome",
+            "example": "Chrome"
+         },
+         "languages": {
+            "content": "$1",
+            "example": "en-US,ja,sr,de,zh_CN"
+         }
+      }
+   },
+   "chrome_extension_description": {
+      "message": "Um leitor para livros para EPUB3."
+   },
+   "chrome_extension_name": {
+      "message": "Readium"
+   },
+   "i18n_add_book": {
+      "message": "Adicionar Livro"
+   },
+   "i18n_add_book_to_readium_library": {
+      "message": "Adicionar Livro \u00E0 Biblioteca Readium:"
+   },
+   "i18n_add_items": {
+      "message": "Adicione itens para sua\u003C/br\u003Ebiblioteca aqui!"
+   },
+   "i18n_added": {
+      "message": "Adicionado: "
+   },
+   "i18n_arabian_nights": {
+      "message": "Noites \u00C1rabes"
+   },
+   "i18n_are_you_sure": {
+      "message": "Voc\u00EA tem certeza de que deseja excluir permanentemente "
+   },
+   "i18n_author": {
+      "message": "Autor: "
+   },
+   "i18n_automatically": {
+      "message": "Abrir automaticamente urls *.epub no readium"
+   },
+   "i18n_ballard_blues": {
+      "message": "Ballard Blues"
+   },
+   "i18n_black_and_white": {
+      "message": "Preto e Branco"
+   },
+   "i18n_cancel": {
+      "message": "Cancelar"
+   },
+   "i18n_close": {
+      "message": "Fechar"
+   },
+   "i18n_confirm_that_this_book": {
+      "message": "Confirmar que este livro obedece aos padr\u00F5es ePUB"
+   },
+   "i18n_created_at": {
+      "message": "Criado aos: "
+   },
+   "i18n_delete": {
+      "message": "Excluir"
+   },
+   "i18n_details": {
+      "message": "Detalhes"
+   },
+   "i18n_display_format": {
+      "message": "FORMATO DE EXIBI\u00C7\u00C3O"
+   },
+   "i18n_double_pages": {
+      "message": "P\u00E1g. Duplas"
+   },
+   "i18n_enter_a_url": {
+      "message": "Insira uma URL para um arquivo .epub"
+   },
+   "i18n_epub_version": {
+      "message": "Vers\u00E3o do EPUB: "
+   },
+   "i18n_extracting": {
+      "message": "extraindo: "
+   },
+   "i18n_font_size": {
+      "message": "TAMANHO DA FONTE"
+   },
+   "i18n_format": {
+      "message": "Formato: "
+   },
+   "i18n_from_local_file": {
+      "message": "De Arquivo Local:"
+   },
+   "i18n_from_the_web": {
+      "message": "Da Rede:"
+   },
+   "i18n_html_readium_tm_a_project": {
+      "message": "Readium\u003Csup\u003ETM\u003C/sup\u003E, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the \u003Ca href=\"http://readium.org/\"\u003Eproject homepage\u003C/a\u003E. To date, the project development has been lead by \u003Ca href=\"http://evidentpoint.com/\"\u003EEvident Point\u003C/a\u003E and \u003Ca href=\"http://www.bluefirereader.com/\"\u003EBluefire Productions\u003C/a\u003E. To contribute visit the \u003Ca href=\"https://github.com/readium/readium\"\u003Egithub repository\u003C/a\u003E"
+   },
+   "i18n_id": {
+      "message": "ID: "
+   },
+   "i18n_margins": {
+      "message": "MARGENS"
+   },
+   "i18n_modified_date": {
+      "message": "Data de Modifica\u00E7\u00E3o: "
+   },
+   "i18n_paginate_all": {
+      "message": "Paginar todo o conte\u00FAdo ePUB flu\u00EDdo"
+   },
+   "i18n_pub_date": {
+      "message": "Publica\u00E7\u00E3o: "
+   },
+   "i18n_publisher": {
+      "message": "Editora: "
+   },
+   "i18n_read": {
+      "message": "Ler"
+   },
+   "i18n_readium_library": {
+      "message": "Biblioteca Readium"
+   },
+   "i18n_readium_options": {
+      "message": "Op\u00E7\u00F5es do Readium:"
+   },
+   "i18n_sands_of_dune": {
+      "message": "Areias de Duna"
+   },
+   "i18n_save_changes": {
+      "message": "Salvar mudan\u00E7as"
+   },
+   "i18n_save_settings": {
+      "message": "Salvar Configura\u00E7\u00F5es"
+   },
+   "i18n_show_warning": {
+      "message": "Exibir mensagem de alerta quando extraindo arquivos EPUB"
+   },
+   "i18n_single_pages": {
+      "message": "P\u00E1g. Simples"
+   },
+   "i18n_sorry": {
+      "message": "Desculpe, o atual EPUB n\u00E3o cont\u00E9m uma m\u00EDdia de sobreposi\u00E7\u00E3o para este conte\u00FAdo"
+   },
+   "i18n_source": {
+      "message": "Origem: "
+   },
+   "i18n_text_and_background_color": {
+      "message": "COR DO TEXTO E PLANO DE FUNDO"
+   },
+   "i18n_unknown": {
+      "message": "Desconhecido"
+   },
+   "i18n_unpacked_directory": {
+      "message": "Diret\u00F3rio Extraido:"
+   },
+   "i18n_validate": {
+      "message": "Validar:"
+   },
+   "i18n_vancouver_mist": {
+      "message": "N\u00E9voa de Vancouver"
+   }
+}
