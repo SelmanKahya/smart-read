@@ -3,19 +3,19 @@
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
    "app": {
       "launch": {
-         "local_path": "readium/views/library.html"
+         "local_path": "views/library.html"
       }
    },
    "background" : {
-      "page": "readium/background/background.html"
+      "page": "background/background.html"
     },
    "description": "__MSG_chrome_extension_description__",
    "default_locale" : "en_US",
    
    "icons": {
-      "16": "readium/images/main_icon/small.png",
-      "48": "readium/images/main_icon/medium.png",
-      "128": "readium/images/main_icon/large.png"
+      "16": "images/main_icon/small.png",
+      "48": "images/main_icon/medium.png",
+      "128": "images/main_icon/large.png"
    },
 
    "minimum_chrome_version": "14",
@@ -29,23 +29,23 @@
     {
       "run_at": "document_idle",
       "matches": ["http://*/*"],
-      "js": ["readium/lib/jquery-1.7.1.min.js", "readium/background/hijack-ebooks.js"]
+      "js": ["lib/jquery-1.7.1.min.js", "background/hijack-ebooks.js"]
     }
   ],
-   "options_page": "readium/views/library.html#options",
+   "options_page": "views/library.html#options",
    "web_accessible_resources": [
-    "readium/scripts/epub_reading_system.js",
-    "readium/lib/mathjax/MathJax.js",
-    "readium/lib/mathjax/config/readium-iframe.js",
-    "readium/lib/mathjax/extensions/MathMenu.js",
-    "readium/lib/mathjax/extensions/MathZoom.js",
-    "readium/lib/mathjax/jax/input/TeX/config.js",
-    "readium/lib/mathjax/jax/input/MathML/config.js",
-    "readium/lib/mathjax/jax/output/SVG/config.js",
-    "readium/lib/mathjax/extensions/tex2jax.js",
-    "readium/lib/mathjax/extensions/mml2jax.js",
-    "readium/lib/mathjax/extensions/MathEvents.js",
-    "readium/lib/images/MenuArrow-15.png"
+    "scripts/epub_reading_system.js",
+    "lib/mathjax/MathJax.js",
+    "lib/mathjax/config/readium-iframe.js",
+    "lib/mathjax/extensions/MathMenu.js",
+    "lib/mathjax/extensions/MathZoom.js",
+    "lib/mathjax/jax/input/TeX/config.js",
+    "lib/mathjax/jax/input/MathML/config.js",
+    "lib/mathjax/jax/output/SVG/config.js",
+    "lib/mathjax/extensions/tex2jax.js",
+    "lib/mathjax/extensions/mml2jax.js",
+    "lib/mathjax/extensions/MathEvents.js",
+    "lib/images/MenuArrow-15.png"
    ],
    "version": "0.5.5.2"
 }
