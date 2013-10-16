@@ -10,21 +10,23 @@ requirejs(['jquery', 'config', 'util/messaging', 'util/messagingClient'], functi
     $(function() {
 
         client.sendBroadcast({ cmd: 'GetExtensionStatus' }, function(result) {
+            client.sendBroadcast({ cmd: 'GetExtensionUsername' }, function(user) {
 
-            // double click event
-            var doubleClicked = function(){
-                var keyword = window.getSelection().toString();
-                $.ajax({
-                    type: "PUT",
-                    url: "http://localhost:3000/activity",
-                    data: {type: 'dblclick', content: keyword}
-                }).done(function(result) {});
-            }
+                // double click event
+                var doubleClicked = function(){
+                    var keyword = window.getSelection().toString();
+                    $.ajax({
+                        type: "PUT",
+                        url: "http://localhost:3000/activity",
+                        data: {username: user.username, type: 'dblclick', content: keyword}
+                    }).done(function(result) {});
+                }
 
-            // IF extension is started, attach all the events
-            if(result.status){
-                document.body.addEventListener('dblclick', doubleClicked);
-            }
+                // IF extension is started, attach all the events
+                if(result.status){
+                    document.body.addEventListener('dblclick', doubleClicked);
+                }
+            });
         });
     });
 });

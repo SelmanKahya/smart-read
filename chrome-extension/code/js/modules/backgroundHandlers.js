@@ -18,6 +18,14 @@ define(['util/template', 'status'], function(template, status) {
 
         handleToggleExtensionStatus: function(args, sender, sendResponse) {
             sendResponse({toggleFunc: status.toggle()});
+        },
+
+        handleSetExtensionUsername: function(args, sender, sendResponse) {
+            sendResponse({username: status.setUsername(args.username)});
+        },
+
+        handleGetExtensionUsername: function(args, sender, sendResponse) {
+            sendResponse({username: status.getUsername()});
         }
     };
 });
