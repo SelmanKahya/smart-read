@@ -11,7 +11,7 @@
 
     "app": {
         "launch": {
-            "local_path": "app-track/main.html"
+            "local_path": "app-track/index.html"
         }
     },
 
