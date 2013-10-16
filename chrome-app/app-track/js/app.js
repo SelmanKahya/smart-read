@@ -5,14 +5,17 @@ var trackApp = angular.module('trackApp', []);
                 CONTROLLERS
  ===========================================
  */
-// Main Angular controller for app.
-function mainController($scope, $http, sampleFactory) {
+
+// home page for app
+trackApp.controller('MainCtrl', function ($scope, $http, sampleFactory) {
     $scope.test = 'Hello world!';
     $scope.factory = sampleFactory;
-}
+});
 
-mainController.$inject = ['$scope', '$http', 'sampleFactory'];
-
+// header controller
+trackApp.controller('HeaderCtrl', function ($scope, $location) {
+    $scope.$location = $location;
+});
 
 /*
  ===========================================
@@ -24,6 +27,28 @@ trackApp.factory('sampleFactory', function() {
     return 'test';
 });
 
+
+/*
+ ===========================================
+                ROUTES
+ ===========================================
+ */
+
+trackApp.config(function ($routeProvider) {
+
+    $routeProvider
+        .when('/', {
+            templateUrl: 'views/main.html',
+            controller: 'MainCtrl'
+        })
+        .when('/activity', {
+            templateUrl: 'views/activity.html',
+            controller: 'MainCtrl'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+});
 
 /*
  ===========================================
