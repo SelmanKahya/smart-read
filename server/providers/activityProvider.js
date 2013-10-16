@@ -5,7 +5,7 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 ActivityProvider = function(config) {
-    this.db= new Db('activity', new Server(config.host, config.port, {auto_reconnect: true}, {}), {safe: true});
+    this.db = new Db('activity', new Server(config.host, config.port, {auto_reconnect: true}, {}), {safe: true});
     this.db.open(function(){});
 };
 
@@ -33,6 +33,18 @@ ActivityProvider.prototype.findById = function(id, callback) {
         if( error ) callback(error);
         else {
             activity_collection.findOne({_id: activity_collection.db.bson_serializer.ObjectID.createFromHexString(id.toString())}, function(error, result) {
+                if( error ) callback(error)
+                else callback(null, result)
+            });
+        }
+    });
+};
+
+ActivityProvider.prototype.findByUsername = function(username, callback) {
+    this.getCollection(function(error, activity_collection) {
+        if( error ) callback(error);
+        else {
+            activity_collection.findOne({activity_username: username}, function(error, result) {
                 if( error ) callback(error)
                 else callback(null, result)
             });

@@ -1,5 +1,6 @@
 var express = require('express');
 var routes = require('./routes');
+var user = require('./routes/user');
 var activity = require('./routes/activity');
 var http = require('http');
 var path = require('path');
@@ -38,6 +39,9 @@ app.post('/activity/:activityID', activity.update);
 
 // delete activity by id
 app.delete('/activity/:activityID', activity.delete);
+
+// create activity
+app.get('/activity/user/:username', user.activity);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -29,7 +29,7 @@ exports.readAll = function(req, res){
 
 // create an activity
 exports.create = function(req, res){
-    var newActivity = new activityModel.Activity(req.body.type, req.body.content);
+    var newActivity = new activityModel.Activity(req.body.username, req.body.type, req.body.content);
 
     activityProvider.save(newActivity, function(error, activity) {
         res.send(newActivity);
@@ -39,10 +39,10 @@ exports.create = function(req, res){
 // update activity
 exports.update = function(req, res){
 
-    if(!req.body.type || !req.body.type)
+    if(!req.body.username || !req.body.type || !req.body.type)
         res.send({status: false});
     else {
-        var activity = new activityModel.Activity(req.body.type, req.body.content);
+        var activity = new activityModel.Activity(req.body.username, req.body.type, req.body.content);
 
         activityProvider.update(req.params.activityID, activity, function(error, activity) {
             res.send(activity);
