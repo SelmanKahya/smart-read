@@ -1,7 +1,7 @@
 <html>
 	<head xmlns="http://www.w3.org/2000/xmlns/" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:ev="http://www.w3.org/2001/xml-events">
 
-		
+
 		<meta charset="UTF-8">
 
 		<title>Readium</title>
@@ -11,8 +11,8 @@
 
 		<!-- Only include Modernizr at the top, everything else is at the bottom -->
 		<script src="/lib/modernizr-2.5.3.min.js" type="text/javascript" ></script>
-		
-	</head>
+
+    </head>
 	<body>
 
  		<div class="navbar navbar-fixed-top" id='toolbar-el'><!-- le top bar -->
@@ -26,7 +26,7 @@
 					<ul class="nav pull-right">
 						<li class="divider-vertical stubby"></li>
 						<li class="smartread">
-							<a title="SmartRead Home" href="/app-track/index.html" id="row-view-btn" role="button">
+							<a title="SmartRead Home" href="/main-app/index.html" id="row-view-btn" role="button">
 								<img style="margin-right: 7px;" src="/icons/36px-white.png" class="small"/ alt=""/>
 								<span>SmartRead Home</span>
 							</a>
@@ -55,7 +55,7 @@
                             <a href="#" id='mo-volume-btn-group' role="slider">
                                 <img src="/images/top_bar/ico_volume.png" id="mo-volume-btn" class="nav-icon" title="Mute" alt="Mute" accesskey="a"/>
                                 <img src="/images/top_bar/ico_volume_muted.png" id="mo-volume-muted-btn" class="nav-icon" title="Unmute" alt="Unmute"  accesskey="a"/>
-                                <input id="mo-volume-slider" type="range"  min="0" max="1.0" value="1.0" step=".05" title="Volume" 
+                                <input id="mo-volume-slider" type="range"  min="0" max="1.0" value="1.0" step=".05" title="Volume"
                                     aria-valuemin="0" aria-valuemax="1.0"/>
                             </a>
                         </li>
@@ -117,7 +117,7 @@
 	    		<div id="toc-body">
 	    		</div>
 	    		<div class="offscreenText"> Table of Contents End </div>
-	 		</div> 
+	 		</div>
 
  			<div id="readium-right-content">
 
@@ -231,8 +231,22 @@
 
 
         <!-- Tracking script starts -->
-        <script src="../app-track/track-lib/lookup/lookup.js" type="text/javascript"></script>
-        <script src="../app-track/track-lib/viewer.js" type="text/javascript"></script>
+
+        <style>
+            .imgWrapper img{
+                position: absolute;
+                right: 60px;
+                top: 30px;
+                max-width: 100px;
+                max-height: 90px;
+            }
+        </style>
+
+        <script src="https://www.google.com/jsapi"></script>
+        <script src="../main-app/track-lib/image-search/image-search.js" type="text/javascript" ></script>
+
+        <script src="../main-app/track-lib/lookup/lookup.js" type="text/javascript"></script>
+        <script src="../main-app/track-lib/viewer.js" type="text/javascript"></script>
 
         <link rel="stylesheet" href="/lib/jquery-ui/jquery-ui.css" type="text/css">
         <script src="/lib/jquery-ui/jquery-ui.min.js" type="text/javascript" ></script>
@@ -247,8 +261,8 @@
                 | Listen <img title="Listen" alt="Listen" src="/lib/jquery-ui/listen.png"/>
             </a> <hr>
             <p id="lookup-definition"></p>
+            <div id="keyword-image"></div>
         </div>
         <!-- Tracking script ends -->
-
     </body>
 </html>
