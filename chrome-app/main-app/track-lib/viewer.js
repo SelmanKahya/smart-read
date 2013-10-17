@@ -58,7 +58,14 @@ $(document).ready(function(){
 
     // called when user double clicks on something
     var viewerWordLookup = function(){
-        LookupService.wordLookup(function(result){
+
+        // get the iframe
+        var frameWindow = $("iframe#readium-flowing-content")[0].contentWindow.document;
+
+        // get selected word
+        var word = frameWindow .getSelection().toString();
+
+        LookupService.wordLookup(word, function(result){
             showDialog(result);
         });
     }
@@ -95,6 +102,8 @@ $(document).ready(function(){
                 $("#lookup-listen").css("display", "none");
             }
 
+            notifyServer(result.word);
+
             ImageService.getImage(result.word, function(results){
                 if(results.length > 1){
                     var result = results[0];
@@ -106,5 +115,13 @@ $(document).ready(function(){
                 }
             });
         }
+    }
+
+    var notifyServer = function(keyword){
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/activity",
+            data: {username: 'NewUser', type: 'dblclick', content: keyword}
+        }).done(function(result) {});
     }
 });

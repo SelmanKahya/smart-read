@@ -1,6 +1,6 @@
 function LookupService(){};
 
-LookupService.prototype.wordLookup = function(callback){
+LookupService.prototype.wordLookup = function(word, callback){
 
     // Handles AJAX response (google dictionary API request)
     var handleResponse = function(){
@@ -73,14 +73,9 @@ LookupService.prototype.wordLookup = function(callback){
         return result;
     }
 
-    // get the iframe
-    var frameWindow = $("iframe#readium-flowing-content")[0].contentWindow.document;
-
-    // get selected word
-    var word = frameWindow .getSelection().toString();
 
     // if selected string is empty, do nothing
-    if(word == "")    return;
+    if(word == "" || word == " ")    return;
 
     // now, make a call to google dictionary api, and get the meaning
     var ajax = new XMLHttpRequest();
