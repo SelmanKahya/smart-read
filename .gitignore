@@ -2,7 +2,7 @@
 chrome-extension/node_modules/
 
 # Ignore extension node modules
-server/node_modules/
+node-server/node_modules/
 
 # Ignore .idea project files
 .idea
