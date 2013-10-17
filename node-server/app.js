@@ -32,7 +32,7 @@ app.get('/activity', activity.readAll);
 app.get('/activity/:activityID', activity.read);
 
 // create activity
-app.put('/activity', activity.create);
+app.post('/activity', activity.create);
 
 // update activity by id
 app.post('/activity/:activityID', activity.update);
