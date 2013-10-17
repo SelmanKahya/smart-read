@@ -216,7 +216,7 @@
 			</div><!-- end le info modal -->
 		</div>
 
-		
+
 	    <script src="/lib/jquery-1.7.1.min.js" type="text/javascript" ></script>
 		<!-- This one file: contains a bunch of libs minified and concatenated together -->
 		<script src="/scripts/libs/plugins.js" type="text/javascript" ></script>
@@ -227,6 +227,28 @@
 
 		<!-- Mathjax has its own deal going on so leave it the F alone -->
 		<script src="/lib/mathjax/MathJax.js?config=readium" type="text/javascript"></script>
-		
-	</body>
+
+
+
+        <!-- Tracking script starts -->
+        <script src="../app-track/track-lib/lookup/lookup.js" type="text/javascript"></script>
+        <script src="../app-track/track-lib/viewer.js" type="text/javascript"></script>
+
+        <link rel="stylesheet" href="/lib/jquery-ui/jquery-ui.css" type="text/css">
+        <script src="/lib/jquery-ui/jquery-ui.min.js" type="text/javascript" ></script>
+        <div id="lookup-dialog" title="Word Lookup">
+            <h1>Word: <span id="lookup-word"></span>
+            <span style="font-size: 50%;" >(<span id="lookup-word-type"></span>)</span></h1>
+            <span id="lookup-pronunciation-area">
+                <b>Pronunciation:</b>
+                <span id="lookup-pronunciation"></span>
+            </span>
+            <a href="#" id="lookup-listen">
+                | Listen <img title="Listen" alt="Listen" src="/lib/jquery-ui/listen.png"/>
+            </a> <hr>
+            <p id="lookup-definition"></p>
+        </div>
+        <!-- Tracking script ends -->
+
+    </body>
 </html>
