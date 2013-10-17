@@ -1,7 +1,4 @@
-# Ignore extension node modules
-chrome-extension/node_modules/
-
-# Ignore extension node modules
+# Ignore server node modules
 node-server/node_modules/
 
 # Ignore .idea project files
