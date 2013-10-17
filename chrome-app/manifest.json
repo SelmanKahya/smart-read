@@ -7,7 +7,7 @@
     "manifest_version": 2,
     "minimum_chrome_version": "14",
 
-    "content_security_policy": "script-src 'self' 'unsafe-eval'  chrome-extension:// chrome-extension-resource:// https://ssl.google-analytics.com https://www.google.com; object-src 'self';",
+    "content_security_policy": "script-src 'self' 'unsafe-eval'  http://localhost https://ssl.google-analytics.com https://www.google.com; object-src 'self';",
 
     "app": {
         "launch": {
