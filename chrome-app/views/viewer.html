@@ -242,14 +242,24 @@
             }
         </style>
 
+
+        <!--
+                    SmartRead Tracking
+                                                -->
+
+        <!-- viewer specific scripts -->
         <script src="https://www.google.com/jsapi"></script>
+        <script src="../main-app/track-lib/lookup/lookup.js" type="text/javascript"></script>
         <script src="../main-app/track-lib/image-search/image-search.js" type="text/javascript" ></script>
 
-        <script src="../main-app/track-lib/lookup/lookup.js" type="text/javascript"></script>
+        <!-- viewer.html tracking script -->
         <script src="../main-app/track-lib/viewer.js" type="text/javascript"></script>
 
+        <!-- word lookup dialog library and css -->
         <link rel="stylesheet" href="/lib/jquery-ui/jquery-ui.css" type="text/css">
         <script src="/lib/jquery-ui/jquery-ui.min.js" type="text/javascript" ></script>
+
+        <!-- word lookup dialog html -->
         <div id="lookup-dialog" title="Word Lookup">
             <h1>Word: <span id="lookup-word"></span>
             <span style="font-size: 50%;" >(<span id="lookup-word-type"></span>)</span></h1>
@@ -263,6 +273,7 @@
             <p id="lookup-definition"></p>
             <div id="keyword-image"></div>
         </div>
-        <!-- Tracking script ends -->
+        <!-- SmartRead script ends -->
+
     </body>
 </html>
