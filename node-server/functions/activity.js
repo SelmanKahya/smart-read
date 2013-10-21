@@ -21,6 +21,8 @@ exports.create = function(req, res){
     var object = {
         activity_type_id: req.body.activity_type_id,
         activity_content: req.body.activity_content,
+        activity_created_time: new Date(),
+        book_name: req.body.book_name,
         user_id : req.body.user_id
     }
 
@@ -43,11 +45,12 @@ exports.update = function(req, res){
         activity_id: req.params.id,
         activity_type_id: req.body.activity_type_id,
         activity_content: req.body.activity_content,
+        book_name: req.body.book_name,
         user_id: req.body.user_id
     }
 
-    db.execute('UPDATE activity SET activity_type_id = ?, activity_content = ?, user_id = ? WHERE activity_id = ?',
-        [object.activity_type_id, object.activity_content, object.user_id, object.activity_id], function(err, result){
+    db.execute('UPDATE activity SET activity_type_id = ?, activity_content = ?, book_name = ? , user_id = ? WHERE activity_id = ?',
+        [object.activity_type_id, object.activity_content, object.book_name, object.user_id, object.activity_id], function(err, result){
 
         if(err)
             res.send(500, new resultModel.result(false, {}, 'Error while updating the activity!'));

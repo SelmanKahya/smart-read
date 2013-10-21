@@ -20,10 +20,11 @@ exports.create = function(req, res){
     // object to be created
     var object = {
         word_lookup_word: req.body.word_lookup_word,
-        word_lookup_quiz_taken: req.body.word_lookup_quiz_taken,
-        word_lookup_quiz_result	 : req.body.word_lookup_quiz_result,
-        book_name	 : req.body.book_name,
-        user_id	 : req.body.user_id
+        word_lookup_quiz_taken: req.body.word_lookup_quiz_taken || 0,
+        word_lookup_quiz_result: req.body.word_lookup_quiz_result || 0,
+        word_lookup_created_time: new Date(),
+        book_name: req.body.book_name,
+        user_id: req.body.user_id
     }
 
     db.execute('INSERT INTO word_lookup SET ?', object, function(err, result){
