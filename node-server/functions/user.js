@@ -1,21 +1,28 @@
 var db = require('../lib/db.js');
+var resultModel = require('../lib/models/result.js');
 
-/*
- * Activity CRUD operations
- */
-
-// return activity by id
+// return user activities
 exports.activity = function(req, res){
-    activityProvider.findByUsername(req.params.username, function(error, activity){
-        if(!activity || activity.length == 0)
-            res.send({});
-        else
-            res.render('userActivity', { username: req.params.username, activity: JSON.stringify(activity)});
-            // res.send(activity);
-    });
+    var user_id = req.params.id;
+    db.execute('SELECT * FROM activity WHERE user_id = ?', [user_id], function(err, result){
+        if(err)
+            res.send(500, new resultModel.result(false, {}, 'Error while getting word lookup data!'));
 
-    db.execute('INSERT INTO user SET ?', {user_username: '1', user_first_name: '2', user_last_name : '3', user_created_date: '4'}, function(err, result){
-        console.log(err);
-        console.log(result);
+        else{
+            res.send(new resultModel.result(true, result));
+        }
+    });
+};
+
+// return user activities
+exports.lookup = function(req, res){
+    var user_id = req.params.id;
+    db.execute('SELECT * FROM word_lookup WHERE user_id = ?', [user_id], function(err, result){
+        if(err)
+            res.send(500, new resultModel.result(false, {}, 'Error while getting word lookup data!'));
+
+        else{
+            res.send(new resultModel.result(true, result));
+        }
     });
 };

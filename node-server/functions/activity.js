@@ -1,53 +1,73 @@
 var db = require('../lib/db.js');
-var activityModel = require('./activity.js');
-
-/*
- * Activity CRUD operations
- */
+var resultModel = require('../lib/models/result.js');
 
 // return activity by id
 exports.read = function(req, res){
-    activityProvider.findById(req.params.activityID, function(error, activity){
-        if(!activity || activity.length == 0)
-            res.send({});
-        else
-            res.send(activity);
-    });
-};
+    var activity_id = req.params.id;
+    db.execute('SELECT * FROM activity WHERE activity_id = ?', [activity_id], function(err, result){
+        if(err)
+            res.send(500, new resultModel.result(false, {}, 'Error while getting activity!'));
 
-// return all activity
-exports.readAll = function(req, res){
-    db.execute('INSERT INTO user SET ?', {user_username: '1', user_first_name: '2', user_last_name : '3', user_created_date: '4'}, function(err, result){
-        console.log(err);
-        console.log(result);
+        else{
+            res.send(new resultModel.result(true, result));
+        }
     });
 };
 
 // create an activity
 exports.create = function(req, res){
-    var newActivity = new activityModel.Activity(req.body.username, req.body.type, req.body.content);
-    activityProvider.save(newActivity, function(error, activity) {
-        res.send(newActivity);
+
+    // object to be created
+    var object = {
+        activity_type_id: req.body.activity_type_id,
+        activity_content: req.body.activity_content,
+        user_id : req.body.user_id
+    }
+
+    db.execute('INSERT INTO activity SET ?', object, function(err, result){
+        if(err)
+            res.send(500, new resultModel.result(false, {}, 'Error while creating an activity!'));
+
+        else{
+            object.activity_id = result.insertId;
+            res.send(new resultModel.result(true, object));
+        }
     });
 };
 
 // update activity
 exports.update = function(req, res){
 
-    if(!req.body.username || !req.body.type || !req.body.type)
-        res.send({status: false});
-    else {
-        var activity = new activityModel.Activity(req.body.username, req.body.type, req.body.content);
-
-        activityProvider.update(req.params.activityID, activity, function(error, activity) {
-            res.send(activity);
-        });
+    // object to be modified
+    var object = {
+        activity_id: req.params.id,
+        activity_type_id: req.body.activity_type_id,
+        activity_content: req.body.activity_content,
+        user_id: req.body.user_id
     }
+
+    db.execute('UPDATE activity SET activity_type_id = ?, activity_content = ?, user_id = ? WHERE activity_id = ?',
+        [object.activity_type_id, object.activity_content, object.user_id, object.activity_id], function(err, result){
+
+        if(err)
+            res.send(500, new resultModel.result(false, {}, 'Error while updating the activity!'));
+
+        else
+            res.send(new resultModel.result(true, object));
+
+    });
 };
 
 // delete activity
 exports.delete = function(req, res){
-    activityProvider.delete(req.params.activityID, function(error, activity) {
-        res.send({status: true});
+
+    var activity_id = req.params.id;
+
+    db.execute('DELETE FROM activity WHERE activity_id = ?', [activity_id], function(err, result){
+        if(err)
+            res.send(500, new resultModel.result(false, {}, 'Error while deleting the activity!'));
+
+        else
+            res.send(new resultModel.result(true, {}));
     });
 };
