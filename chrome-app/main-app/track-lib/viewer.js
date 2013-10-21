@@ -1,18 +1,6 @@
 var LookupService = new LookupService();
 var ImageService = new ImageService();
 
-var test = setTimeout(function(){
-    var numPages = window._epubController.paginator.v.pages.attributes.num_pages;
-    var currentPage = window._epubController.paginator.v.pages.attributes.current_page;
-
-    var pageChanged = function(model, newPage){
-        var oldPage = model._previousAttributes.current_page;
-        // make ajax call
-    }
-
-    window._epubController.paginator.v.pages.on("change:current_page", pageChanged, this);
-}, 3500);
-
 $(document).ready(function(){
 
     // name of the readium iframe
@@ -129,8 +117,12 @@ $(document).ready(function(){
     var notifyServer = function(keyword){
         $.ajax({
             type: "POST",
-            url: "http://localhost:3000/activity",
-            data: {username: 'NewUser', type: 'dblclick', content: keyword}
+            url: "http://localhost:3000/word-lookup",
+            data: {
+                word_lookup_word: keyword,
+                book_name: 'Hefty',
+                user_id: '1'
+            }
         }).done(function(result) {});
     }
 });
