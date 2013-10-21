@@ -49,18 +49,4 @@ $(document).ready(function(){
 
         }
     }
-
-    window.onbeforeunload = function() {
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3000/activity",
-            asnyc: false,
-            data: {
-                activity_type_id: '2',
-                activity_content: '',
-                book_name : '1',
-                user_id : '1'
-            }
-        }).done(function(result) {});
-    }
 });
