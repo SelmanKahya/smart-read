@@ -1,0 +1,52 @@
+<h3>Select book:</h3>
+
+<a style="margin-right: 10px;" ng-click="selectBook();"  class="btn btn-small btn-warning">All Books</a>
+<span ng-repeat="book in books">
+    <a style="margin-right: 10px;" ng-click="selectBook(book);"  class="btn btn-small btn-inverse">{{book.book_name}} </a>
+</span>
+
+<div style="margin-top: 40px;" class="well well-small">
+
+    <h4 ng-show="selectedBook" style="line-height: 40px;">
+        Your look-up words from <i>'{{ selectedBook.book_name }}'</i>
+        <div class="pull-right">
+            <button ng-click="startQuiz(quizWords());" ng-disabled="quizWords().length == 0" class="btn btn-success"><b>Take a Quiz ({{quizWords().length}} word(s))</b></button>
+        </div>
+    </h4>
+
+    <h4 ng-show="!selectedBook" style="line-height: 40px;">
+        Your all look-up words
+        <div class="pull-right">
+            <button ng-click="startQuiz(quizWords());" ng-disabled="quizWords().length == 0" class="btn btn-success"><b>Take a Quiz ({{quizWords().length}} word(s))</b></button>
+        </div>
+    </h4>
+
+    <hr/>
+
+    <div ng-show="getSelectedBookWords().length > 0">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Word</th>
+                <th style='text-align: center;'>Lookup Times</th>
+                <th style='text-align: center;'>Took Quiz</th>
+                <th style='text-align: center;'>Quiz Result</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="word in getSelectedBookWords()">
+                <td>{{word.word_lookup_word}}</td>
+                <td style='text-align: center;'>{{word.word_lookup_count}}</td>
+                <td style='text-align: center;'>{{word.word_lookup_quiz_taken | oneZeroToYesNo}}</td>
+                <td style='text-align: center;'>
+                    <span class="label" ng-class="{true:'label-success', false:'label-important'}[word.word_lookup_quiz_result==1]" ng-show="word.word_lookup_quiz_taken == 1">{{word.word_lookup_quiz_result | oneZeroToYesNo}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <span ng-show="!getSelectedBookWords().length">
+        No lookup words yet..
+    </span>
+</div>

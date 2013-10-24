@@ -1,0 +1,12 @@
+<div ng-repeat="activity in activities">
+    Activity:
+
+    <div ng-show="activity.activity_type_id == 1">
+        You started reading {{ activity.book_name }} at {{ activity.activity_created_time }}
+    </div>
+
+    <div ng-show="activity.activity_type_id == 3">
+        You changed the page to {{ activity.activity_content }}
+    </div>
+    <br/>
+</div>
