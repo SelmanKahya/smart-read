@@ -37,6 +37,7 @@ app.delete( '/word-lookup/:id', wordLookup.delete);
 // USER Routes
 app.get(    '/user/:id/activity', user.activity);
 app.get(    '/user/:id/word-lookup', user.lookup);
+app.get(    '/user/:id/word-lookup/books', user.books);
 
 // Server is starting, hold on!
 http.createServer(app).listen(3000, function(){

@@ -19,11 +19,15 @@ exports.execute = function (sql, object, callback) {
         }
         else {
             // now execute the query
-            pool.query(sql, object, function(err, result) {
+            connection.query(sql, object, function(err, result) {
                 if(err)
                     callback(err)
                 else
                     callback(null, result);
+
+
+                // done with the connection.
+                connection.release();
             });
         }
     });
