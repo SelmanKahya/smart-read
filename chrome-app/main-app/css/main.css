@@ -46,15 +46,31 @@ body {
     font-size: smaller;
 }
 
-.header-logo a{
-    color: #04aeda;
-    text-decoration: none;
+.header-div {
+    margin-bottom: 25px;
+    margin-left: 10px;
 }
 
-.header-logo a:hover{
+.header-logo {
+    color: #04aeda;
+    text-decoration: none;
+    font-size: 25px ;
+    font-weight: bold;
+    line-height: 40px;
+}
+
+.header-logo:hover{
     color: #047fa7;
+    text-decoration: none;
 }
 
 .header-logo img{
     margin-right: 15px;
+}
+
+.content{
+    background-color: rgb(247, 247, 247);
+    padding: 10px 25px;
+    min-height: 400px;
+    border-radius: 5px;
 }
