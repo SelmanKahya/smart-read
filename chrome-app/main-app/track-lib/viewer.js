@@ -115,14 +115,16 @@ $(document).ready(function(){
     }
 
     var notifyServer = function(keyword){
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3000/word-lookup",
-            data: {
-                word_lookup_word: keyword,
-                book_name: 'Hefty',
-                user_id: '1'
-            }
-        }).done(function(result) {});
+        if(SMARTREAD.book){
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3000/word-lookup",
+                data: {
+                    word_lookup_word: keyword,
+                    book_name: SMARTREAD.book.name,
+                    user_id: '1'
+                }
+            }).done(function(result) {});
+        }
     }
 });

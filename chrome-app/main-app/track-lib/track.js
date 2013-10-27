@@ -4,10 +4,15 @@ SMARTREAD = {};
 
 $(document).ready(function(){
 
-    var checkReadiumTimer = setInterval(function(){checkReadium()}, 200);
+    var checkReadiumTimer = setInterval(function(){checkReadium()}, 1);
     var checkReadium = function(){
+
         // if it is loaded, then bind events to elements inside iframe
-        if(window._epubController && window._epub){
+        if(window._epubController &&
+            window._epubController.paginator &&
+            window._epubController.paginator.v &&
+            window._epub){
+
             clearInterval(checkReadiumTimer);
 
             // INIT book configuration
