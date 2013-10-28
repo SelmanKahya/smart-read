@@ -1,10 +1,4 @@
-var mainApp = angular.module('mainApp', []);
-
-/*
- ===========================================
-                ROUTES
- ===========================================
- */
+var mainApp = angular.module('mainApp', ['ui.bootstrap']);
 
 mainApp.config(function ($routeProvider) {
 
@@ -12,6 +6,14 @@ mainApp.config(function ($routeProvider) {
         .when('/', {
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
+        })
+        .when('/dashboard', {
+            templateUrl: 'views/dashboard.html',
+            controller: 'DashboardCtrl'
+        })
+        .when('/word-lookup', {
+            templateUrl: 'views/word-lookup.html',
+            controller: 'WordLookupCtrl'
         })
         .when('/activity', {
             templateUrl: 'views/activity.html',
@@ -22,14 +24,8 @@ mainApp.config(function ($routeProvider) {
         });
 });
 
-
-
-/*
- ===========================================
-                SERVICES
- ===========================================
- */
-
-mainApp.factory('sampleFactory', function() {
-    return 'test';
+mainApp.filter('oneZeroToYesNo', function() {
+    return function(input) {
+        return input == 1 ? 'Yes' : 'No';
+    };
 });
