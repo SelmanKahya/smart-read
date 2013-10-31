@@ -1,9 +1,11 @@
 mainApp.controller('WordLookupCtrl', function ($scope, $http, $modal, $route, lookupService, imageSearchService, $timeout) {
 
+	// changes selectedBook based on user selection
     $scope.selectBook = function(book){
         $scope.selectedBook = book;
     }
 
+	// list words from selected book
     $scope.getSelectedBookWords = function(){
         if($scope.selectedBook){
             var result = [];
@@ -26,6 +28,8 @@ mainApp.controller('WordLookupCtrl', function ($scope, $http, $modal, $route, lo
         $scope.books = response.result;
     });
 
+	// time to take a quiz,
+	// send words that user will be take quiz on
     $scope.quizWords = function() {
 
         var notTakenQuiz = [];
@@ -39,6 +43,7 @@ mainApp.controller('WordLookupCtrl', function ($scope, $http, $modal, $route, lo
         return notTakenQuiz;
     };
 
+	// start taking a quiz
     $scope.startQuiz = function(words) {
 
         var modalInstance = $modal.open({
