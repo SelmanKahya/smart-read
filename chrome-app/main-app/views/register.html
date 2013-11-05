@@ -1,0 +1,67 @@
+<style>
+    .form-control { margin-bottom: 10px; }
+    .container-middle { width: 510px; margin: 0px auto; }
+    .container-middle label { display: inline; line-height: 30px;}
+    .container-middle .field-n { margin-bottom: 10px; }
+    .container-middle input[type="radio"], input[type="checkbox"] { margin-top: 0px;}
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="container-middle ">
+            <h1 class="text-center login-title">SmartRead - Sign up</h1>
+            <span class="text-center new-account">Already a member? <a href="#/login">Click here to login &rsaquo;&rsaquo;</a></span>
+            <div class="account-wall account-wall-wide">
+                <form action="#" method="post" class="form" role="form">
+
+                    <div class="field-n">Name:</div>
+                    <div class="pull-left">
+                        <input class="form-control" name="firstname" placeholder="First Name" type="text"
+                               required autofocus />
+                    </div>
+                    <div class="pull-right">
+                        <input class="form-control" name="lastname" placeholder="Last Name" type="text" required />
+                    </div>
+
+                    <div class="clear">   </div>
+
+                    <div class="field-n"><br/><br/><br/>Email:</div>
+                    <div class="pull-left">
+                        <input class="form-control" name="youremail" placeholder="Your Email" type="email" />
+                    </div>
+
+                    <div class="pull-right">
+                        <input class="form-control" name="reenteremail" placeholder="Re-enter Email" type="email" />
+                    </div>
+
+                    <div style="clear: both;"></div>
+
+                    <div class="field-n"><br/>Password:</div>
+                    <div class="pull-left">
+                        <input class="form-control" name="password" placeholder="Password" type="password" />
+                    </div>
+
+                    <div style="clear: both;"></div>
+
+                    <br/> Gender:
+                    <label style="margin-left: 10px;"  class="radio-inline">
+                        <input type="radio" name="sex" id="inlineCheckbox1" value="male" />
+                        Male
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" id="inlineCheckbox2" value="female" />
+                        Female
+                    </label>
+
+                    <div style="clear: both;"></div>
+
+                    <br />
+                    <button class="btn btn-large btn-primary btn-block" type="submit">Sign up</button>
+                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br /><br />
