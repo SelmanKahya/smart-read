@@ -8,58 +8,64 @@
 
 <div class="container">
     <div class="row">
-        <div class="container-middle ">
+        <div ng-show="error" style="width: 50%; margin: 20px auto; padding: 20px; background-color: #FF755F; color: white;">
+            Error occured:
+            <ul>
+                <li ng-repeat="err in error">{{err}}</li>
+            </ul>
+        </div>
+        <div ng-hide="processing" class="container-middle ">
             <h1 class="text-center login-title">SmartRead - Sign up</h1>
             <span class="text-center new-account">Already a member? <a href="#/login">Click here to login &rsaquo;&rsaquo;</a></span>
             <div class="account-wall account-wall-wide">
-                <form action="#" method="post" class="form" role="form">
+                <form class="form" role="form" name="signupForm">
 
                     <div class="field-n">Name:</div>
                     <div class="pull-left">
-                        <input class="form-control" name="firstname" placeholder="First Name" type="text"
-                               required autofocus />
+                        <input class="form-control" ng-model="user.user_first_name" name="firstname" placeholder="First Name" type="text" required autofocus />
                     </div>
                     <div class="pull-right">
-                        <input class="form-control" name="lastname" placeholder="Last Name" type="text" required />
+                        <input class="form-control" ng-model="user.user_last_name" name="lastname" placeholder="Last Name" type="text" required />
                     </div>
 
                     <div class="clear">   </div>
 
                     <div class="field-n"><br/><br/><br/>Email:</div>
                     <div class="pull-left">
-                        <input class="form-control" name="youremail" placeholder="Your Email" type="email" />
-                    </div>
-
-                    <div class="pull-right">
-                        <input class="form-control" name="reenteremail" placeholder="Re-enter Email" type="email" />
+                        <input class="form-control" ng-model="user.user_email" name="youremail" placeholder="Your Email" type="email" required/>
                     </div>
 
                     <div style="clear: both;"></div>
 
                     <div class="field-n"><br/>Password:</div>
                     <div class="pull-left">
-                        <input class="form-control" name="password" placeholder="Password" type="password" />
+                        <input class="form-control" ng-model="user.user_password" name="password" placeholder="Password" type="password" required/>
                     </div>
 
                     <div style="clear: both;"></div>
 
                     <br/> Gender:
                     <label style="margin-left: 10px;"  class="radio-inline">
-                        <input type="radio" name="sex" id="inlineCheckbox1" value="male" />
+                        <input type="radio" name="sex" id="inlineCheckbox1" ng-model="user.user_gender" value="M" required/>
                         Male
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="sex" id="inlineCheckbox2" value="female" />
+                        <input type="radio" name="sex" id="inlineCheckbox2" ng-model="user.user_gender" value="F" required/>
                         Female
                     </label>
 
                     <div style="clear: both;"></div>
 
                     <br />
-                    <button class="btn btn-large btn-primary btn-block" type="submit">Sign up</button>
+                    <button ng-click="register()" class="btn btn-large btn-primary btn-block">Sign up</button>
                     <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                 </form>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div style="margin-top: 40px; text-align: center; font-weight: bold;" ng-show="processing" class="container-middle ">
+            Please wait..
         </div>
     </div>
 </div>
