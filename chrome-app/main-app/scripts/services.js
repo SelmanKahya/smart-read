@@ -107,3 +107,11 @@ mainApp.factory('imageSearchService', function($http) {
         }
     }
 });
+
+mainApp.factory('memberService', function($http) {
+    return {
+        register : function(){
+
+        }
+    }
+});

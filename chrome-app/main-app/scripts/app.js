@@ -23,6 +23,11 @@ mainApp.config(function ($routeProvider) {
             controller: 'ActivityCtrl',
             resolve: { user: mainApp.resolveUser }
         })
+        .when('/chat', {
+            templateUrl: 'views/chat.html',
+            controller: 'ChatCtrl',
+            resolve: { user: mainApp.resolveUser }
+        })
         .when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl'
@@ -40,16 +45,22 @@ mainApp.config(function ($routeProvider) {
         });
 });
 
-mainApp.resolveUser = function($q, $route, $location){
+mainApp.resolveUser = function($q, $route, $rootScope, $location, $timeout){
     var defer = $q.defer();
     chrome.storage.local.get('user', function (result) {
-        // if not, redirect him to login page
-        if(result.user == null){
-            $location.path('/login');
-            defer.reject();
-            return;
-        }
-        defer.resolve(result.user);
+        $timeout(function(){
+            // if not, redirect him to login page
+            if(result.user == null){
+                $timeout(function(){
+                    $location.path('/login');
+                });
+                defer.reject();
+                return;
+            }
+
+            $rootScope.user = result.user;
+            defer.resolve(result.user);
+        });
     });
     return defer.promise;
 }
