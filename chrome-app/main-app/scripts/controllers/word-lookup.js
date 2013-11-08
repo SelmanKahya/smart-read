@@ -1,4 +1,4 @@
-mainApp.controller('WordLookupCtrl', function ($scope, $http, $modal, $route, lookupService, imageSearchService, $timeout) {
+mainApp.controller('WordLookupCtrl', function ($scope, $http, $modal, $route, lookupService, imageSearchService, $timeout, user) {
 
 	// changes selectedBook based on user selection
     $scope.selectBook = function(book){
@@ -20,11 +20,11 @@ mainApp.controller('WordLookupCtrl', function ($scope, $http, $modal, $route, lo
             return $scope.words;
     }
 
-    $http({method: 'GET', url: 'http://localhost:3000/user/1/word-lookup'}).success(function(response, status, headers, config) {
+    $http({method: 'GET', url: 'http://localhost:3000/user/' + user.user_id + '/word-lookup'}).success(function(response, status, headers, config) {
         $scope.words = response.result;
     });
 
-    $http({method: 'GET', url: 'http://localhost:3000/user/1/word-lookup/books'}).success(function(response, status, headers, config) {
+    $http({method: 'GET', url: 'http://localhost:3000/user/' + user.user_id + '/word-lookup/books'}).success(function(response, status, headers, config) {
         $scope.books = response.result;
     });
 
