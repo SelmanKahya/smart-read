@@ -1,4 +1,6 @@
-var mainApp = angular.module('mainApp', ['ui.bootstrap']);
+'use strict';
+
+var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'ui.bootstrap']);
 
 mainApp.config(function ($routeProvider) {
 
