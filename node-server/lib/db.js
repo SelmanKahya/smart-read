@@ -13,8 +13,13 @@ exports.execute = function (sql, object, callback) {
     // get a connection from the pool
     pool.getConnection(function(err, connection) {
         if (err) {
-            console.log(err);
-            connection.end();
+
+            if(!connection)
+                console.log('DB connection error')
+
+            else
+                connection.end();
+
             return;
         }
         else {
