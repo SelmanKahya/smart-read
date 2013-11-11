@@ -1,7 +1,8 @@
-mainApp.controller('DashboardCtrl', function ($scope, $http, user) {
+mainApp.controller('DashboardCtrl', function ($scope, $http, user, userService) {
 
-    $http({method: 'GET', url: 'http://localhost:3000/user/' + user.user_id + '/activity'}).success(function(response, status, headers, config) {
-        $scope.activities = response.result;
-    });
+    // get user activity
+    userService.activity(user.user_id, function(result){
+        $scope.activities = result;
+    })
 
 });

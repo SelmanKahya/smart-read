@@ -1,18 +1,25 @@
 // header controller
-mainApp.controller('HeaderCtrl', function ($rootScope, $scope, $location, $window) {
+mainApp.controller('HeaderCtrl', function ($rootScope, $scope, $location, $window, member, session) {
+
+    // required to display current page in header menu (class="active")
     $scope.$location = $location;
 
-    $rootScope.$watch('user', function(newVal, oldVal){
+    // watch user, if it changes, update user in this scope
+    $rootScope.$watch('user', function(){
         $scope.user = $rootScope.user;
     });
 
+    // start reading button click event
     $scope.startReading = function(){
         $window.location.href = '../views/library.html';
     }
 
+    // logout button click event
     $scope.logout = function (){
-        chrome.storage.local.set({'user': null});
-        $location.path('/login');
-        $rootScope.user = null;
+
+        // delete session info, use member service
+        session.end(function(){
+            $location.path('/login');
+        })
     }
 });
