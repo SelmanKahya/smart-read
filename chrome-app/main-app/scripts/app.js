@@ -60,7 +60,6 @@ mainApp.resolveUser = function($q, $route, $rootScope, $location, $timeout){
                 return;
             }
 
-            $rootScope.user = result.user;
             defer.resolve(result.user);
         });
     });

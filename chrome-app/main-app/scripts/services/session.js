@@ -7,6 +7,7 @@ system.factory('session', function($http, $location, $rootScope, $timeout) {
         start : function(user, callback){
             chrome.storage.local.set({'user': user}, function(){
                 $timeout(function(){
+                    $rootScope.user = user;
                     callback(true);
                 });
             });
