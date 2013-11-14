@@ -167,3 +167,27 @@ body {
     width: 400px;
     margin: 0px auto;
 }
+
+/****************************/
+/*      WORD LOOKUP PAGE    */
+.answer_box {
+    text-align: center;
+    font-size: 20px;
+    color: #5E697E;
+    font-weight: bold;
+    width: 350px;
+    margin: 30px auto;
+}
+
+.answer_result_box {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.correct_answer{
+    background-color: #B2FF6B;
+}
+
+.wrong_answer{
+    background-color: #FF9898;
+}
