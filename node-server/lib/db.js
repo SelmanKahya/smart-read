@@ -14,6 +14,8 @@ exports.execute = function (sql, object, callback) {
     pool.getConnection(function(err, connection) {
         if (err) {
 
+            console.log('DB POOL.CONNECTION ERROR:' + err);
+
             if(!connection)
                 console.log('DB connection error')
 
