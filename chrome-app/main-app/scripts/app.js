@@ -25,6 +25,16 @@ mainApp.config(function ($routeProvider) {
             controller: 'ActivityCtrl',
             resolve: { user: mainApp.resolveUser }
         })
+        .when('/word-lookup-quiz', {
+            templateUrl: 'views/word-lookup-quiz.html',
+            controller: 'WordLookupQuizCtrl',
+            resolve: { user: mainApp.resolveUser }
+        })
+        .when('/word-lookup-quiz/online', {
+            templateUrl: 'views/word-lookup-quiz-online.html',
+            controller: 'WordLookupQuizOnlineCtrl',
+            resolve: { user: mainApp.resolveUser }
+        })
         .when('/chat', {
             templateUrl: 'views/chat.html',
             controller: 'ChatCtrl',
@@ -36,7 +46,7 @@ mainApp.config(function ($routeProvider) {
         })
         .when('/logout', {
             templateUrl: 'views/logout.html',
-            controller: 'LoginCtrl'
+            controller: 'LogoutCtrl'
         })
         .when('/register', {
             templateUrl: 'views/register.html',
@@ -47,22 +57,29 @@ mainApp.config(function ($routeProvider) {
         });
 });
 
-mainApp.resolveUser = function($q, $route, $rootScope, $location, $timeout){
+mainApp.resolveUser = function($q, $route, $rootScope, $location, session){
     var defer = $q.defer();
-    chrome.storage.local.get('user', function (result) {
-        $timeout(function(){
-            // if not, redirect him to login page
-            if(result.user == null){
-                $timeout(function(){
-                    $location.path('/login');
-                });
-                defer.reject();
-                return;
-            }
 
-            defer.resolve(result.user);
+    // if already have $rootScope.user, just return it
+    if($rootScope.user){
+        defer.resolve($rootScope.user)
+    }
+
+    // otherwise check if chrome storage has user session info
+    else {
+        session.check(function(user){
+            // if it has, then return it
+            if(user)
+                defer.resolve(user);
+
+            // otherwise, redirect to login
+            else {
+                defer.reject();
+                $location.path('/login');
+            }
         });
-    });
+    }
+
     return defer.promise;
 }
 
