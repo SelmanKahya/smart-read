@@ -8,6 +8,16 @@ api.factory('userService', function($http) {
             $http({method: 'GET', url: 'http://localhost:3000/user/' + user_id + '/activity'}).success(function(response, status, headers, config) {
                 callback(response.result);
             });
+        },
+        books : function(user_id, callback){
+            $http({method: 'GET', url: 'http://localhost:3000/user/' + user_id + '/word-lookup/books'}).success(function(response, status, headers, config) {
+                callback(response.result);
+            });
+        },
+        wordLookups : function(user_id, callback){
+            $http({method: 'GET', url: 'http://localhost:3000/user/' + user_id + '/word-lookup'}).success(function(response, status, headers, config) {
+                callback(response.result);
+            });
         }
     }
 });
@@ -15,6 +25,20 @@ api.factory('userService', function($http) {
 api.factory('activityService', function($http) {
     return {
 
+    }
+});
+
+api.factory('wordLookupService', function($http) {
+    return {
+        save: function(word, callback){
+            $http({
+                url: "http://localhost:3000/word-lookup/" + word.word_lookup_id,
+                method: "POST",
+                data: word
+            }).success(function(data, status, headers, config) {
+                    callback(true);
+                });
+        }
     }
 });
 
