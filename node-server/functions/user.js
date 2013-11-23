@@ -15,15 +15,32 @@ exports.register = function(req, res){
     }
 
 
-    db.execute('INSERT INTO user SET ?', user, function(err, result){
+    db.execute('SELECT * FROM user WHERE user_email = ?', [user.user_email], function(err, result){
+
         if(err)
-            res.send(500, new resultModel.result(false, {}, 'Error while creating the user!'));
+            res.send(500, new resultModel.result(false, {}, ['Error while logging in!]']));
 
         else{
-            user.user_id = result.insertId;
-            res.send(new resultModel.result(true, user));
+
+            // if no user with given email
+            if(result.length == 0){
+
+                db.execute('INSERT INTO user SET ?', user, function(err, result){
+                    if(err)
+                        res.send(500, new resultModel.result(false, {}, 'Error while creating the user!'));
+
+                    else{
+                        user.user_id = result.insertId;
+                        res.send(new resultModel.result(true, user));
+                    }
+                });
+            }
+
+            else
+                res.send(new resultModel.result(false, {}, ['Username (' + user.user_email + ') already exist. Please register with another e-mail address!']));
         }
     });
+
 
 };
 
@@ -37,8 +54,6 @@ exports.login = function(req, res){
     }
 
     db.execute('SELECT * FROM user WHERE user_email = ? AND user_password = ?', [user.user_email, user.user_password], function(err, result){
-
-        console.log(result);
 
         if(err)
             res.send(500, new resultModel.result(false, {}, ['Error while logging in!]']));
@@ -57,7 +72,7 @@ exports.login = function(req, res){
 // return user activities
 exports.activity = function(req, res){
     var user_id = req.params.id;
-    db.execute('SELECT * FROM activity WHERE user_id = ?', [user_id], function(err, result){
+    db.execute('SELECT * FROM activity WHERE user_id = ? ORDER BY activity_created_time ASC', [user_id], function(err, result){
         if(err)
             res.send(500, new resultModel.result(false, {}, ['Error while getting word lookup data!']));
 
