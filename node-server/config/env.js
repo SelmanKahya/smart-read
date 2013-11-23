@@ -17,16 +17,22 @@ app.configure('development', function(){
     }
 });
 
-app.configure('production', function(){
+
+app.configure('server-test', function(){
 
     console.log('Running on production mode..');
 
+    // app fog node-js server environment values
+    var env = JSON.parse(process.env.VCAP_SERVICES);
+
+    var credentials = env['mysql-5.1'][0].credentials;
+
     mysqlConfiguration = {
-        host     : 'localhost',
-        user     : 'root',
-        password : '',
-        database : 'smart-read',
-        port     : "3306",
+        host     : credentials.host,
+        user     : credentials.username,
+        password : credentials.password,
+        database : credentials.name,
+        port     : credentials.port,
         multipleStatements : true
     }
 });
