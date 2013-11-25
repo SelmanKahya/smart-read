@@ -47,7 +47,7 @@ app.get(    '/user/:id/word-lookup/books', user.books);
 // Server is starting, hold on!
 var server = http.createServer(app);
 
-server.listen(3000, function(){
+server.listen(process.env.VCAP_APP_PORT || 3000, function(){
     console.log('Express server listening on port ' + app.get('port'));
 });
 
