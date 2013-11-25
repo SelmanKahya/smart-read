@@ -33,8 +33,7 @@ mainApp.controller('WordLookupQuizOnlineCtrl', function ($scope, $rootScope, $ht
     };
 
 
-    /*
-    var sock = new SockJS('http://localhost:3000/chat');
+    var sock = new SockJS('http://smart-read-api-test.eu01.aws.af.cm/chat');
 
     $timeout(function(){
         sock.send(JSON.stringify({type: 'newUser', data: user}));
@@ -58,12 +57,16 @@ mainApp.controller('WordLookupQuizOnlineCtrl', function ($scope, $rootScope, $ht
         $scope.history += e.data + '\n';
         $scope.$apply();
     };
-*/
+
+
+    /*
+
+    // WEBSOCKET
 
     try{
 
         var socket;
-        var host = "ws://localhost:3000/chat";
+        var host = "http://localhost:3000/chat";
         var socket = new WebSocket(host);
 
         message('<p class="event">Socket Status: '+socket.readyState);
@@ -88,4 +91,6 @@ mainApp.controller('WordLookupQuizOnlineCtrl', function ($scope, $rootScope, $ht
         $scope.history += msg + '\n';
 
     }
+     */
+
 });
