@@ -1,6 +1,6 @@
 'use strict';
 
-var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'ui.bootstrap']);
+var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'service.analysis', 'service.utility', 'service.options', 'ui.bootstrap', 'highcharts-ng']);
 
 mainApp.config(function ($routeProvider) {
 
@@ -55,6 +55,25 @@ mainApp.config(function ($routeProvider) {
         .otherwise({
             redirectTo: '/'
         });
+
+});
+
+// EXTEND Classes here
+mainApp.config(function ($routeProvider) {
+
+    // check if dates are the same
+    // it only checks: (day, month and year)
+    Date.prototype.sameDateAs = function(pDate){
+        return ((this.getFullYear()==pDate.getFullYear())&&(this.getMonth()==pDate.getMonth())&&(this.getDate()==pDate.getDate()));
+    }
+
+});
+
+mainApp.run(function ($rootScope) {
+    // chrome.storage.local.set({'server': {mode: 'local', url: 'http://localhost:3000/'}}, function(){});
+    var server = {mode: 'server', url: 'http://smart-read-api-test.eu01.aws.af.cm/'};
+    chrome.storage.local.set({'server': server}, function(){});
+    $rootScope.server = server;
 });
 
 mainApp.resolveUser = function($q, $route, $rootScope, $location, session){
