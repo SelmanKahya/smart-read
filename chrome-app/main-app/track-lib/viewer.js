@@ -1,37 +1,50 @@
-var LookupService = new LookupService();
-var ImageService = new ImageService();
-
 $(document).ready(function(){
 
-    // name of the readium iframe
-    // it is dynamically added into current window
-    // so we need to check when it is completely loaded
-    // to attach events
-    var iframe = "iframe#readium-flowing-content";
+    var init = function(){
 
-    // checks if the iframe is loaded - current interval is 200ms
-    var checkTimer = setInterval(function(){checkIframe()}, 200);
-    var checkIframe = function(){
-        // if it is loaded, then bind events to elements inside iframe
-        if($(iframe).length){
-            clearInterval(checkTimer);
 
-            // Sometimes iframe is being loaded later than expected
-            // This disables us to attach all the events to iframe elements correctly:
-            // because iframe is not there when we attach events to elements.
-            // So, we bind onload function to iframe and it is called after iframe is fully loaded
-            $(iframe)[0].contentWindow.onload = function() {
-                bindEvents();
+        // name of the readium iframe
+        // it is dynamically added into current window
+        // so we need to check when it is completely loaded
+        // to attach events
+        var iframe = "iframe#readium-flowing-content";
+
+        // checks if the iframe is loaded - current interval is 200ms
+        var checkTimer = setInterval(function(){checkIframe()}, 200);
+        var checkIframe = function(){
+            // if it is loaded, then bind events to elements inside iframe
+            if($(iframe).length){
+                clearInterval(checkTimer);
+
+                // Sometimes iframe is being loaded later than expected
+                // This disables us to attach all the events to iframe elements correctly:
+                // because iframe is not there when we attach events to elements.
+                // So, we bind onload function to iframe and it is called after iframe is fully loaded
+                $(iframe)[0].contentWindow.onload = function() {
+                    bindEvents(iframe);
+                }
+
+                bindEvents(iframe);
             }
+        }
 
-            bindEvents();
+        // iframe is loaded, it is time to bind events to epub reader!
+        var bindEvents = function(iframe){
+            $(iframe).contents().find("body").unbind( "dblclick" );
+            $(iframe).contents().find("body").on('dblclick', viewerWordLookup);
         }
     }
 
-    // iframe is loaded, it is time to bind events to epub reader!
-    var bindEvents = function(){
-        $(iframe).contents().find("body").on('dblclick', viewerWordLookup);
-    }
+    init();
+
+    // attach a function to page change event
+    $( "a" ).click(function() {
+        init();
+    });
+
+    $( "a" ).click(function() {
+        init();
+    });
 
     // init dialog element
     $( "#lookup-dialog" ).dialog({
@@ -60,9 +73,9 @@ $(document).ready(function(){
         var frameWindow = $("iframe#readium-flowing-content")[0].contentWindow.document;
 
         // get selected word
-        var word = frameWindow .getSelection().toString();
+        var word = frameWindow.getSelection().toString();
 
-        LookupService.wordLookup(word, function(result){
+        SMARTREAD.services.LookupService.wordLookup(word, function(result){
             showDialog(result);
         });
     }
@@ -101,7 +114,7 @@ $(document).ready(function(){
 
             notifyServer(result.word);
 
-            ImageService.getImage(result.word, function(results){
+            SMARTREAD.services.ImageService.getImage(result.word, function(results){
                 if(results.length > 1){
                     var result = results[0];
                     var imgClass = 'imgWrapper';
@@ -116,15 +129,14 @@ $(document).ready(function(){
 
     var notifyServer = function(keyword){
         if(SMARTREAD.book){
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:3000/word-lookup",
-                data: {
-                    word_lookup_word: keyword,
-                    book_name: SMARTREAD.book.name,
-                    user_id: '1'
-                }
-            }).done(function(result) {});
+
+
+            var data = {
+                word_lookup_word: keyword,
+                book_name: SMARTREAD.book.name
+            };
+
+            SMARTREAD.services.CallService.makeRequest('POST', 'word-lookup/', data, function(result){});
         }
     }
 });
