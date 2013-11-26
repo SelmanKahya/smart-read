@@ -1,12 +1,19 @@
-<div ng-repeat="activity in activities">
-    Activity:
-
-    <div ng-show="activity.activity_type_id == 1">
-        You started reading {{ activity.book_name }} at {{ activity.activity_created_time }}
-    </div>
-
-    <div ng-show="activity.activity_type_id == 3">
-        You changed the page to {{ activity.activity_content }}
-    </div>
-    <br/>
+<div class="span11">
+    <h3 class="text-center">Reading Activity</h3>
+    <highchart id="chart1" config="chartConfig.timeSpentByDates" ></highchart>
 </div>
+
+<div class="clearfix"></div> <br/><hr/>
+
+<div class="span6">
+    <h4 class="text-center">Total Time Spent By Books</h4>
+    <highchart id="chart1" config="chartConfig.timeSpentByBooks" ></highchart>
+</div>
+
+
+<div class="span5">
+    <h4 class="text-center">Your Popular Categories</h4>
+    <highchart id="chart1" config="chartConfig.mostPopularCategories"></highchart>
+</div>
+
+<div class="clearfix"></div>
