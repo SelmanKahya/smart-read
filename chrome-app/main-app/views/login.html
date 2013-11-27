@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row" ng-hide="processing" >
-        <div ng-show="error" style="width: 50%; margin: 20px auto; padding: 20px; background-color: #FF755F; color: white;">
+        <div ng-show="error" style="width: 50%; margin: 20px auto; padding: 20px; background-color: rgb(223, 102, 83); color: white; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;">
             Error occured:
             <ul>
                 <li ng-repeat="err in error">{{err}}</li>
@@ -17,7 +17,7 @@
                     <input type="password" class="form-control" ng-model="user.user_password" placeholder="Password" required>
                     <button ng-click="login()" class="btn btn-large btn-primary btn-block">
                         Sign in</button>
-                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                    <a href="#/" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                 </form>
             </div>
         </div>
