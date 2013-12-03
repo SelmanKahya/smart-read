@@ -57,40 +57,4 @@ mainApp.controller('WordLookupQuizOnlineCtrl', function ($scope, $rootScope, $ht
         $scope.history += e.data + '\n';
         $scope.$apply();
     };
-
-
-    /*
-
-    // WEBSOCKET
-
-    try{
-
-        var socket;
-        var host = "http://localhost:3000/chat";
-        var socket = new WebSocket(host);
-
-        message('<p class="event">Socket Status: '+socket.readyState);
-
-        socket.onopen = function(){
-            message('<p class="event">Socket Status: '+socket.readyState+' (open)');
-        }
-
-        socket.onmessage = function(msg){
-            message('<p class="message">Received: '+msg.data);
-        }
-
-        socket.onclose = function(){
-            message('<p class="event">Socket Status: '+socket.readyState+' (Closed)');
-        }
-
-    } catch(exception){
-        message('<p>Error'+exception);
-    }
-
-    function message(msg){
-        $scope.history += msg + '\n';
-
-    }
-     */
-
 });
