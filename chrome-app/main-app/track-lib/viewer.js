@@ -136,7 +136,7 @@ $(document).ready(function(){
                 book_name: SMARTREAD.book.name
             };
 
-            SMARTREAD.services.CallService.makeRequest('POST', 'word-lookup/', data, function(result){});
+            SMARTREAD.services.CallService.makeRequest('POST', '/word-lookup/', data, function(result){});
         }
     }
 });
