@@ -37,6 +37,8 @@ SMARTREAD = new function() {
 
                 var current_page = window._epubController.paginator.v.pages.get("current_page");
 
+                console.log(window._epub);
+
                 // INIT book configuration
                 SMARTREAD.book = {
                     id: window._epub.attributes.id,
@@ -129,7 +131,7 @@ SMARTREAD = new function() {
                     user_id : activity.user_id
                 };
 
-                SMARTREAD.services.CallService.makeRequest('POST', 'activity/', data, function(result){
+                SMARTREAD.services.CallService.makeRequest('POST', '/activity/', data, function(result){
                     callback(result);
                 });
             }
