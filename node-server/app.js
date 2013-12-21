@@ -1,7 +1,7 @@
 var express = require('express');
+var socket = require('./functions/socket.js');
 var http = require('http');
 var app = express();
-var sockjs = require('sockjs');
 
 // all environments
 app.use(express.logger('dev'));
@@ -48,51 +48,10 @@ app.get(    '/user/:id/word-lookup/books', user.books);
 var server = http.createServer(app);
 
 server.listen(process.env.VCAP_APP_PORT || 3000, function(){
+
     console.log('Express server listening on port ' + app.get('port'));
+
+    // start socket
+    socket.init(server);
+
 });
-
-// open socket for chat
-var connections = [];
-var chat = sockjs.createServer();
-chat.on('connection', function(conn) {
-
-    connections.push(conn);
-
-    var number = connections.length;
-    var username = 'Guest ' + number;
-
-    conn.write("Welcome to the chat room");
-
-    conn.on('data', function(message) {
-
-        var message = JSON.parse(message);
-
-        if(message.type == 'newUser')  {
-
-            username = message.data.user_first_name + " " + message.data.user_last_name;
-
-            // tell other users that new user entered to room
-            for (var ii=0; ii < connections.length; ii++) {
-                if(connections[ii] != conn)
-                    connections[ii].write(username + " entered to the room");
-            }
-        }
-
-        if(message.type == 'sendingMessage'){
-
-            for (var ii=0; ii < connections.length; ii++) {
-                connections[ii].write(username + " says: " + message.data);
-            }
-
-        }
-    });
-
-    conn.on('close', function() {
-        for (var ii=0; ii < connections.length; ii++) {
-            connections[ii].write(username + " has disconnected");
-        }
-    });
-});
-
-chat.installHandlers(server, {prefix:'/chat'});
-
