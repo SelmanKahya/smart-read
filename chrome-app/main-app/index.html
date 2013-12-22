@@ -10,9 +10,9 @@
 <body data-ng-app="mainApp" ng-csp="">
 
 <div class="container-narrow">
-    <ng-include src="'./views/header.html'"></ng-include>
+    <ng-include src="'./views/partial/header.html'"></ng-include>
     <div class="content" ng-view=""></div> <hr>
-    <ng-include src="'./views/footer.html'"></ng-include>
+    <ng-include src="'./views/partial/footer.html'"></ng-include>
 </div>
 
 <script src="js/jquery.min.js"></script>
@@ -37,14 +37,14 @@
 
 <script src="scripts/app.js"></script>
 <script src="scripts/controllers/main.js"></script>
-<script src="scripts/controllers/header.js"></script>
+<script src="scripts/controllers/partial/header.js"></script>
 <script src="scripts/controllers/dashboard.js"></script>
 <script src="scripts/controllers/word-lookup.js"></script>
-<script src="scripts/controllers/login.js"></script>
-<script src="scripts/controllers/logout.js"></script>
-<script src="scripts/controllers/register.js"></script>
-<script src="scripts/controllers/word-lookup-quiz.js"></script>
-<script src="scripts/controllers/word-lookup-quiz-online.js"></script>
+<script src="scripts/controllers/member/login.js"></script>
+<script src="scripts/controllers/member/logout.js"></script>
+<script src="scripts/controllers/member/register.js"></script>
+<script src="scripts/controllers/games/word-lookup-quiz.js"></script>
+<script src="scripts/controllers/games/word-game.js"></script>
 
 </body>
 </html>
