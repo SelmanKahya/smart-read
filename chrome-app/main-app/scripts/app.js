@@ -20,38 +20,34 @@ mainApp.config(function ($routeProvider) {
             controller: 'WordLookupCtrl',
             resolve: { user: mainApp.resolveUser }
         })
-        .when('/activity', {
-            templateUrl: 'views/activity.html',
-            controller: 'ActivityCtrl',
-            resolve: { user: mainApp.resolveUser }
-        })
+
+
         .when('/word-lookup-quiz', {
-            templateUrl: 'views/word-lookup-quiz.html',
+            templateUrl: 'views/games/word-lookup-quiz.html',
             controller: 'WordLookupQuizCtrl',
             resolve: { user: mainApp.resolveUser }
         })
-        .when('/word-lookup-quiz/online', {
-            templateUrl: 'views/word-lookup-quiz-online.html',
+        .when('/word-game', {
+            templateUrl: 'views/games/word-game.html',
             controller: 'WordLookupQuizOnlineCtrl',
             resolve: { user: mainApp.resolveUser }
         })
-        .when('/chat', {
-            templateUrl: 'views/chat.html',
-            controller: 'ChatCtrl',
-            resolve: { user: mainApp.resolveUser }
-        })
+
+
         .when('/login', {
-            templateUrl: 'views/login.html',
+            templateUrl: 'views/member/login.html',
             controller: 'LoginCtrl'
         })
         .when('/logout', {
-            templateUrl: 'views/logout.html',
+            templateUrl: 'views/member/logout.html',
             controller: 'LogoutCtrl'
         })
         .when('/register', {
-            templateUrl: 'views/register.html',
+            templateUrl: 'views/member/register.html',
             controller: 'RegisterCtrl'
         })
+
+
         .otherwise({
             redirectTo: '/'
         });
@@ -71,7 +67,8 @@ mainApp.config(function ($routeProvider) {
 
 mainApp.run(function ($rootScope) {
     // chrome.storage.local.set({'server': {mode: 'local', url: 'http://localhost:3000/'}}, function(){});
-    var server = {mode: 'server', url: 'http://smart-read-api-test.eu01.aws.af.cm/'};
+    var server = {mode: 'local', url: 'http://localhost:3000'};
+    //var server = {mode: 'server', url: 'http://smart-read-api-test.eu01.aws.af.cm/'};
     chrome.storage.local.set({'server': server}, function(){});
     $rootScope.server = server;
 });
