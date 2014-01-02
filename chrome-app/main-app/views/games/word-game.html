@@ -1,0 +1,106 @@
+<div class="modal-header">
+    <h3>
+        Word Game
+    </h3>
+</div>
+<div style="margin: 30px 0px 20px; text-align: center;">
+
+
+    <div ng-show="status == ''">
+        <br/><br/><br/><br/>
+        <a data-ng-click="findOpponent()" style="font-size: 150%; padding: 10px; background-color: #0090F0; color: #303030 !important; font-weight: bold; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;">
+            Find me an opponent!
+        </a>
+        <p style="margin-top: 30px;">We will match you someone with your level of word knowledge.</p>
+    </div>
+
+
+    <div ng-show="status == 'find-opponent'">
+
+        <br/><br/><img src="./images/progress.gif" />
+
+        <p style="margin-top: 40px; font-weight: bold;">
+
+            Looking for an opponent.. Please wait.
+        </p>
+    </div>
+
+
+    <div ng-show="status == 'starting'">
+
+        <br/><br/><img src="./images/progress.gif" />
+
+        <p style="margin-top: 40px; font-weight: bold;">
+
+            Get ready!! Game is starting in 5 secs.
+        </p>
+    </div>
+
+
+    <div ng-show="status == 'disconnected'">
+
+        <p style="margin-top: 40px; font-weight: bold;">
+
+        <div>
+            <h1>Connection Lost!</h1>
+            Your opponent has quited! Want to play again? <br/><br/><br/>
+        </div>
+
+        <a data-ng-click="findOpponent()" style="font-size: 150%; padding: 10px; background-color: #0090F0; color: #303030 !important; font-weight: bold; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;">
+            Find me an opponent!
+        </a>
+        <p style="margin-top: 30px;">We will match you someone with your level of word knowledge.</p>
+
+        </p>
+    </div>
+
+
+    <div ng-show="status == 'started'">
+
+        <h4>Definition: </h4>
+        A set of connected things or parts forming a complex whole, in particular
+        <h5 style="margin-top: 35px;">Guess the word: </h5>
+
+        <input type="text" ng-model="guess" ng-required="true" style="width: 30%;" class="ng-dirty ng-invalid ng-invalid-required" required="required"><br/><br/>
+        <button ng-click="showResult()" ng-disabled="!guess" class="btn btn-primary" disabled="disabled">See Result</button>
+
+        <textarea style="margin-top: 100px; width: 100%; height: 100px;" ng-model="history"></textarea>
+        <input type="text" ng-model="messageText" placeholder="Type your message here" />
+        <input type="button" value="Send" data-ng-click="sendMessage()"/><br/><br/>
+        <input type="button" value="Finish Playing" data-ng-click="quit()"/>
+
+    </div>
+
+
+    <div ng-show="status == 'result'">
+
+        <div class="well well-small answer_box">
+            <div class="answer_result_box" ng-class="{correct_answer: result, wrong_answer: !result}">
+                <span ng-show="result">Correct!</span>
+                <span ng-show="!result">Wrong!</span>
+            </div>
+        </div>
+
+        <p>Answer: system</p>
+        <p>Your guess: <span ng-bind="guess"></span></p>
+
+    </div>
+
+
+
+    <div ng-show="status == 'lost'">
+
+        <div class="well well-small answer_box">
+            <div class="answer_result_box" class="wrong_answer">
+                <span>You lost!</span>
+            </div>
+        </div>
+
+        <p>Your opponent answered question correctly.</p>
+
+    </div>
+
+
+
+</div>
+
