@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
-app = express();
 
+app = express();
 
 app.configure('development', function(){
 
@@ -20,7 +20,7 @@ app.configure('development', function(){
 
 app.configure('server-test', function(){
 
-    console.log('Running on production mode..');
+    console.log('Running on server-test mode..');
 
     // app fog node-js server environment values
     var env = JSON.parse(process.env.VCAP_SERVICES);
