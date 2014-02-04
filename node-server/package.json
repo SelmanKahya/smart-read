@@ -9,6 +9,8 @@
       "express": "3.4.0",
       "jade": "*",
       "mysql" : "2.0.0-alpha9",
-      "sockjs": "0.3.8"
+      "sockjs": "0.3.8" ,
+      "passport": "*",
+      "passport-local": "*"
   }
 }
