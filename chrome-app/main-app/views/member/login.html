@@ -3,7 +3,7 @@
         <div ng-show="error" style="width: 50%; margin: 20px auto; padding: 20px; background-color: rgb(223, 102, 83); color: white; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;">
             Error occured:
             <ul>
-                <li ng-repeat="err in error">{{err}}</li>
+                <li>{{error}}</li>
             </ul>
         </div>
         <div class="cont-middle" >
@@ -13,8 +13,8 @@
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                      alt="">
                 <form class="form-signin" name="loginForm">
-                    <input ng-model="user.user_email" class="form-control" placeholder="Email" type="email" required autofocus>
-                    <input type="password" class="form-control" ng-model="user.user_password" placeholder="Password" required>
+                    <input ng-model="user.username" class="form-control" placeholder="Email" type="email" required autofocus>
+                    <input type="password" class="form-control" ng-model="user.password" placeholder="Password" required>
                     <button ng-click="login()" class="btn btn-large btn-primary btn-block">
                         Sign in</button>
                     <a href="#/" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
