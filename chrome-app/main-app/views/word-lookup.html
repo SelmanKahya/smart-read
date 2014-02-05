@@ -12,7 +12,7 @@
         <span ng-show="selectedBook">Your look-up words from <i>'{{ selectedBook.book_name }}'</i></span>
         <span ng-show="!selectedBook">Your all look-up words</i></span>
         <div class="pull-right">
-            <button ng-click="startWordLookupQuiz();" ng-disabled="getSelectedBookWords().length == 0" class="btn btn-success"><b>Take a Word-Lookup Quiz</b></button>
+            <button ng-click="startWordLookupQuiz();" ng-disabled="getNotQuizTakenWords().length == 0" class="btn btn-success"><b><i class=" icon-play-circle icon-white"></i> Play Word Quiz ({{getNotQuizTakenWords().length}} words)</b></button>
         </div>
     </h4>
 
@@ -38,7 +38,7 @@
                         <td style='text-align: center;'>{{word.word_lookup_count}}</td>
                         <td style='text-align: center;'>{{word.word_lookup_quiz_taken | oneZeroToYesNo}}</td>
                         <td style='text-align: center;'>
-                            <span class="label" ng-class="{true:'label-success', false:'label-important'}[word.word_lookup_quiz_result==1]" ng-show="word.word_lookup_quiz_taken == 1">{{word.word_lookup_quiz_result | oneZeroToYesNo}}</span>
+                            <span class="label" ng-class="{true:'label-success', false:'label-important'}[word.word_lookup_quiz_result==1]" ng-show="word.word_lookup_quiz_taken == 1">{{word.word_lookup_quiz_result | oneZeroToSuccessFail}}</span>
                         </td>
                     </tr>
                 </tbody>

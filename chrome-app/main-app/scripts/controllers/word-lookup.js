@@ -1,12 +1,12 @@
 mainApp.controller('WordLookupCtrl', function ($scope, $rootScope, $location, $http, user, userService) {
 
     // get books that user read
-    userService.books(user.user_id, function(result){
+    userService.books(function(result){
         $scope.books = result;
     });
 
     // get user word-lookups
-    userService.wordLookups(user.user_id, function(result){
+    userService.wordLookups(function(result){
         $scope.words = result;
     });
 
@@ -15,24 +15,23 @@ mainApp.controller('WordLookupCtrl', function ($scope, $rootScope, $location, $h
         $scope.selectedBook = book;
     }
 
-	// return lookup-words from the selected book
+    // return lookup-words from the selected book
     $scope.getSelectedBookWords = function(){
         if($scope.selectedBook){
-            var result = [];
-            for(var i = 0; i < $scope.words.length; i++){
-                if($scope.selectedBook.book_name == $scope.words[i].book_name){
-                    result.push($scope.words[i])
-                }
-            }
-            return result;
+            return JSPath.apply('.{.book_name === $book_name}', $scope.words, {book_name: $scope.selectedBook.book_name});
         }
         else
             return $scope.words;
     }
 
+    // return no quiz taken words from the selected book
+    $scope.getNotQuizTakenWords = function(){
+        return JSPath.apply('.{.word_lookup_quiz_result != 1}', $scope.getSelectedBookWords());
+    }
+
     // start taking the quiz
     $scope.startWordLookupQuiz = function() {
-        $rootScope.words = $scope.getSelectedBookWords();
+        $rootScope.words = $scope.getNotQuizTakenWords();
         $location.path('/word-lookup-quiz');
     };
 });
