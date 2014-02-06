@@ -37,7 +37,7 @@ SMARTREAD = new function() {
 
                 var current_page = window._epubController.paginator.v.pages.get("current_page");
 
-                console.log(window._epub);
+                // console.log(window._epub);
 
                 // INIT book configuration
                 SMARTREAD.book = {
@@ -157,8 +157,16 @@ SMARTREAD = new function() {
 
                 // process the json response, creates result object
                 var process = function(json_obj){
+
+                    // this is the word that user has just double clicked
+                    // we are not using it, since the actual word might be different
+                    // for example: after double clicking on "reached", dictionary will
+                    // show the meaning of "reach", and
+                    // "reach" is the thing that we care about here
+                    var double_clicked_word = json_obj.query;
+
                     var result = {
-                        word : json_obj.query,
+                        word : null,
                         type : null,
                         sound : null,
                         pronunciation : null,
@@ -183,8 +191,17 @@ SMARTREAD = new function() {
                                     sound = pro[i]["text"];
                                 }
                                 else if(pro[i]["type"]=="text"){
-                                    wordType += pro[i]["labels"][0]['text'];
-                                    wordType += " ";
+                                    var actual_word = pro[i]["text"];
+
+                                    // here we have to remove all the · symbols in the word
+                                    // by default, google dictionary api separates syllables in the word with "·" character
+                                    actual_word = actual_word.replace(/·/g,'');
+                                    result.word = actual_word;
+
+                                    if(pro[i]["labels"]){
+                                        wordType += pro[i]["labels"][0]['text'];
+                                        wordType += " ";
+                                    }
                                 }
                             }
 
@@ -204,8 +221,6 @@ SMARTREAD = new function() {
                             }
                             result.primary_means = primary_mean_list;
                         }
-                        else
-                            continue;
                     }
 
                     return result;
