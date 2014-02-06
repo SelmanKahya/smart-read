@@ -1,4 +1,6 @@
-mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $modal, $route, $location, lookupService, imageSearchService, $timeout, wordLookupService, $routeParams) {
+mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $modal, $route,
+                                                   $location, lookupService, imageSearchService, $timeout, wordLookupService,
+                                                   user, userService) {
 
     // status results, handling front-end components
     $scope.flags = {
@@ -17,19 +19,12 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
         }
     };
 
-    // init variables
-    var words = $rootScope.words;
-
-    // if doesn't have the words in rootScope, then redirect user to word-lookup page
-    if(!words)
-        $location.path('/word-lookup');
-
     $scope.quiz = {
         step: 0,
         status: 0,
         wordCursor: 0,
-        word: words[0],
-        words: words,
+        word: {},
+        words: [],
         hint: {
             status: $scope.flags.HINT.INACTIVE,
             images: []
@@ -39,6 +34,24 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
             result: false
         }
     };
+
+    // init variables
+    var words = $rootScope.words;
+    $rootScope.words = null;
+
+    // if doesn't have the words in rootScope, then get all word-lookups from the server
+    if(!words){
+        // get user word-lookups
+        userService.wordLookups(function(result){
+            $scope.quiz.word = result[0];
+            $scope.quiz.words = result;
+        });
+    }
+
+    else {
+        $scope.quiz.word = words[0];
+        $scope.quiz.words = words;
+    }
 
     $scope.getDefinition = function(){
         lookupService.wordLookup($scope.quiz.word.word_lookup_word, function(result){
