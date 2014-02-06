@@ -6,26 +6,22 @@ mainApp.controller('RegisterCtrl', function ($scope, $http, $location, $timeout,
         if($scope.signupForm.$invalid)
             return;
 
+        $scope.processing = true;
+
         // make request
         member.register($scope.user, function(result, response){
 
+            $scope.processing = false;
+
             if(result){
-                $scope.processing = true;
+
                 $scope.error = null;
 
-                if(response.status){
-                    var user = response.result;
+                if(response.status)
+                    $scope.successful = true;
 
-                    // registration successful, now start session
-                    session.start(user, function(){
-                        $location.path('/');
-                    })
-                }
-
-                else {
+                else
                     $scope.error = response.error;
-                    $scope.processing = false;
-                }
             }
 
             // request status is 200, but response.result is not OK (shouldn't happen)

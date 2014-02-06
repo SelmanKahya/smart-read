@@ -1,6 +1,6 @@
 mainApp.controller('LoginCtrl', function ($scope, $http, $timeout, $location, member, session) {
 
-    // first logout the current user even if he already logged in
+    // first logout the current user even if user already logged in
     session.end(function(){});
 
     // login button click event
@@ -38,7 +38,7 @@ mainApp.controller('LoginCtrl', function ($scope, $http, $timeout, $location, me
             // request failed (status not 200), most probably auth error
             else {
                 $scope.user = null;
-                $scope.error = response.error;
+                $scope.error = "Wrong credentials. Please check your username and password!";
                 $scope.processing = false;
             }
         });

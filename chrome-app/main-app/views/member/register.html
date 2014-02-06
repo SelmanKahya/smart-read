@@ -14,6 +14,10 @@
                 <li ng-repeat="err in error">{{err}}</li>
             </ul>
         </div>
+        <div ng-show="successful" style="width: 50%; margin: 20px auto; padding: 20px; background-color: #baffb7; color: black; text-align: center">
+            Registration successful! <br/><br/>
+            <a href="#/login" class="btn btn-large btn-success btn-block">Login >></a>
+        </div>
         <div ng-hide="processing" class="container-middle ">
             <h1 class="text-center login-title">SmartRead - Sign up</h1>
             <span class="text-center new-account">Already a member? <a href="#/login">Click here to login &rsaquo;&rsaquo;</a></span>
@@ -57,7 +61,7 @@
                     <div style="clear: both;"></div>
 
                     <br />
-                    <button ng-click="register()" class="btn btn-large btn-primary btn-block">Sign up</button>
+                    <button data-ng-disabled="signupForm.$invalid" ng-click="register()" class="btn btn-large btn-primary btn-block">Sign up</button>
                     <a href="#/" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                 </form>
             </div>
