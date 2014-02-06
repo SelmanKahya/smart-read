@@ -18,8 +18,12 @@ mainApp.controller('HeaderCtrl', function ($rootScope, $scope, $location, $windo
     $scope.logout = function (){
 
         // delete session info, use member service
-        session.end(function(){
-            $location.path('/login');
-        })
+        member.logout(function(result, response){
+            if(result){
+                session.end(function(){
+                    $location.path('/login');
+                });
+            }
+        });
     }
 });
