@@ -125,7 +125,7 @@ mainApp.controller('DashboardCtrl', function ($scope, $http, $timeout, user, use
     }
 
     // get user activity
-    userService.activity(user.user_id, function(result){
+    userService.activity(function(result){
 
         $scope.activities = result;
 
