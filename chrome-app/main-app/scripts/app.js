@@ -2,7 +2,28 @@
 
 var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'service.analysis', 'service.utility', 'service.options', 'ui.bootstrap', 'highcharts-ng']);
 
-mainApp.config(function ($routeProvider) {
+mainApp.config(function ($routeProvider, $httpProvider) {
+
+    //================================================
+    // Add an interceptor for AJAX errors
+    //================================================
+    $httpProvider.responseInterceptors.push(function($q, $location) {
+        return function(promise) {
+            return promise.then(
+                // Success: just return the response
+                function(response){
+                    return response;
+                },
+                // Error: check the error status to get only the 401
+                function(response) {
+                    if (response.status === 401)
+                        $location.url('/login');
+                    return $q.reject(response);
+                }
+            );
+        }
+    });
+    //================================================
 
     $routeProvider
         .when('/', {
@@ -102,5 +123,11 @@ mainApp.resolveUser = function($q, $route, $rootScope, $location, session){
 mainApp.filter('oneZeroToYesNo', function() {
     return function(input) {
         return input == 1 ? 'Yes' : 'No';
+    };
+});
+
+mainApp.filter('oneZeroToSuccessFail', function() {
+    return function(input) {
+        return input == 1 ? 'Success' : 'Fail';
     };
 });
