@@ -1,8 +1,2 @@
-# Ignore server node modules
-node-server/node_modules/
-
-# Ignoring auth credentials, see auth_credentials_template.js
-node-server/config/auth_credentials.js
-
 # Ignore .idea project files
 .idea

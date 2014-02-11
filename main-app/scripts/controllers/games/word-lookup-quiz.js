@@ -45,12 +45,18 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
         userService.wordLookups(function(result){
             $scope.quiz.word = result[0];
             $scope.quiz.words = result;
+
+            if($scope.quiz.words.length == 0)
+                $location.path('/word-lookup');
         });
     }
 
     else {
         $scope.quiz.word = words[0];
         $scope.quiz.words = words;
+
+        if($scope.quiz.words.length == 0)
+            $location.path('/word-lookup');
     }
 
     $scope.getDefinition = function(){

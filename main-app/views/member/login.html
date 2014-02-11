@@ -15,7 +15,7 @@
                 <form class="form-signin" name="loginForm">
                     <input ng-model="user.username" class="form-control" placeholder="Email" type="email" required autofocus>
                     <input type="password" class="form-control" ng-model="user.password" placeholder="Password" required>
-                    <button ng-click="login()" class="btn btn-large btn-primary btn-block">
+                    <button data-ng-disabled="loginForm.$invalid" ng-click="login()" class="btn btn-large btn-primary btn-block">
                         Sign in</button>
                     <a href="#/" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                 </form>

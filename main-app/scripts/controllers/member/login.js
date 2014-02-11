@@ -37,9 +37,17 @@ mainApp.controller('LoginCtrl', function ($scope, $http, $timeout, $location, me
 
             // request failed (status not 200), most probably auth error
             else {
-                $scope.user = null;
-                $scope.error = "Wrong credentials. Please check your username and password!";
-                $scope.processing = false;
+                if(response){
+                    $scope.user = null;
+                    $scope.error = "Wrong credentials. Please check your username and password!";
+                    $scope.processing = false;
+                }
+
+                else {
+                    $scope.user = null;
+                    $scope.error = "Server is not available, please try again later.";
+                    $scope.processing = false;
+                }
             }
         });
     }
