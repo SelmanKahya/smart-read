@@ -87,9 +87,8 @@ mainApp.config(function ($routeProvider) {
 });
 
 mainApp.run(function ($rootScope) {
-    // chrome.storage.local.set({'server': {mode: 'local', url: 'http://localhost:3000/'}}, function(){});
-    var server = {mode: 'local', url: 'http://localhost:3000'};
-    //var server = {mode: 'server', url: 'http://smart-read-api-test.eu01.aws.af.cm/'};
+    // var server = {mode: 'local', url: 'http://localhost:3000'};
+    var server = {mode: 'server', url: 'http://smart-read-api.aws.af.cm'};
     chrome.storage.local.set({'server': server}, function(){});
     $rootScope.server = server;
 });
