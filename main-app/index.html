@@ -7,16 +7,19 @@
     <link rel="stylesheet" media="all" href="css/main.css">
     <base target="_blank">
 </head>
-<body data-ng-app="mainApp" ng-csp="">
 
-<div class="container-narrow">
-    <ng-include src="'./views/partial/header.html'"></ng-include>
-    <div class="content" ng-view=""></div> <hr>
-    <ng-include src="'./views/partial/footer.html'"></ng-include>
+<div ng-app="mainApp">
+    <div class="container-narrow">
+        <ng-include src="'./views/partial/header.html'"></ng-include>
+        <div class="content" ng-view=""></div> <hr>
+        <ng-include src="'./views/partial/footer.html'"></ng-include>
+    </div>
 </div>
 
 <script src="js/jquery.min.js"></script>
-<script src="js/angular-1.1.0.min.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/angular-cookies.js"></script>
+<script src="js/angular-route.js"></script>
 <script src="js/ui-bootstrap-tpls-0.6.0.js"></script>
 <script src="js/sockjs-0.3.min.js"></script>
 <script src="js/jspath.min.js"></script>
@@ -39,9 +42,9 @@
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/partial/header.js"></script>
 <script src="scripts/controllers/dashboard.js"></script>
+<script src="scripts/controllers/contact.js"></script>
 <script src="scripts/controllers/word-lookup.js"></script>
 <script src="scripts/controllers/member/login.js"></script>
-<script src="scripts/controllers/member/logout.js"></script>
 <script src="scripts/controllers/member/register.js"></script>
 <script src="scripts/controllers/games/word-lookup-quiz.js"></script>
 <script src="scripts/controllers/games/word-game.js"></script>
