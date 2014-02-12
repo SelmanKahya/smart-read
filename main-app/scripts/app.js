@@ -1,6 +1,6 @@
 'use strict';
 
-var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'service.analysis', 'service.utility', 'service.options', 'ui.bootstrap', 'highcharts-ng']);
+var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'service.analysis', 'service.utility', 'service.options', 'ui.bootstrap', 'highcharts-ng', 'ngCookies', 'ngRoute']);
 
 mainApp.config(function ($routeProvider, $httpProvider) {
 
@@ -25,6 +25,8 @@ mainApp.config(function ($routeProvider, $httpProvider) {
     });
     //================================================
 
+    $httpProvider.defaults.withCredentials = true;
+
     $routeProvider
         .when('/', {
             templateUrl: 'views/main.html',
@@ -34,6 +36,11 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         .when('/dashboard', {
             templateUrl: 'views/dashboard.html',
             controller: 'DashboardCtrl',
+            resolve: { user: mainApp.resolveUser }
+        })
+        .when('/contact', {
+            templateUrl: 'views/contact.html',
+            controller: 'ContactCtrl',
             resolve: { user: mainApp.resolveUser }
         })
         .when('/word-lookup', {
