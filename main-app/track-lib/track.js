@@ -105,12 +105,16 @@ SMARTREAD = new function() {
                                 alert('Error while getting server options, please restart the application and go to main page.');
                             else {
 
-                                data.user_id = user.user_id;
+                                if(data)
+                                    data.user_id = user.user_id;
 
                                 $.ajax({
                                     type: method,
                                     url: result.server.url + path,
-                                    data: data
+                                    data: data,
+                                    xhrFields: {
+                                        withCredentials: true
+                                    }
                                 }).done(function(result) {
                                         callback(result);
                                     });
@@ -140,101 +144,17 @@ SMARTREAD = new function() {
         // word lookup requests
         LookupService : new function() {
             this.wordLookup = function (word, callback) {
-                // Handles AJAX response (google dictionary API request)
-                var handleResponse = function(){
-                    if(ajax.readyState==4 && ajax.status==200){
-                        var massaged = ajax.responseText.replace(/^[^(]+\(|[^}]+$/g, ''), res;
-                        try {
-                            res = JSON.parse( massaged );
-                        } catch( e ) {
-                            res = new Function( 'return ' + massaged )();
-                        }
-
-                        var result = process(res);
-                        callback(result);
-                    }
-                }
-
-                // process the json response, creates result object
-                var process = function(json_obj){
-
-                    // this is the word that user has just double clicked
-                    // we are not using it, since the actual word might be different
-                    // for example: after double clicking on "reached", dictionary will
-                    // show the meaning of "reach", and
-                    // "reach" is the thing that we care about here
-                    var double_clicked_word = json_obj.query;
-
-                    var result = {
-                        word : null,
-                        type : null,
-                        sound : null,
-                        pronunciation : null,
-                        primary_means : null
-                    };
-
-                    for (var prop in json_obj){
-                        if(prop=="primaries"){
-                            var stuff = json_obj["primaries"][0];
-
-                            // get pronunciation and sound
-                            var isa = "";
-                            var sound = '';
-                            var wordType = '';
-                            var pro = stuff["terms"];
-                            for(var i=0;i<pro.length;i++){
-                                if(pro[i]["type"]=="phonetic"){
-                                    isa+=pro[i]["text"];
-                                    isa+=" ";
-                                }
-                                else if(pro[i]["type"]=="sound"){
-                                    sound = pro[i]["text"];
-                                }
-                                else if(pro[i]["type"]=="text"){
-                                    var actual_word = pro[i]["text"];
-
-                                    // here we have to remove all the · symbols in the word
-                                    // by default, google dictionary api separates syllables in the word with "·" character
-                                    actual_word = actual_word.replace(/·/g,'');
-                                    result.word = actual_word;
-
-                                    if(pro[i]["labels"]){
-                                        wordType += pro[i]["labels"][0]['text'];
-                                        wordType += " ";
-                                    }
-                                }
-                            }
-
-                            result.sound = sound;
-                            result.type = wordType;
-                            result.pronunciation = isa;
-
-                            // get meaning array
-                            var primary_mean = stuff["entries"];
-                            var primary_mean_list = [];
-                            var k=0;
-                            for(var i=0;i<primary_mean.length;i++){
-                                if(primary_mean[i]["type"]=="meaning"){
-                                    primary_mean_list[k]=primary_mean[i]["terms"][0]["text"];
-                                    k++;
-                                }
-                            }
-                            result.primary_means = primary_mean_list;
-                        }
-                    }
-
-                    return result;
-                }
-
 
                 // if selected string is empty, do nothing
                 if(word == "" || word == " ")    return;
 
-                // now, make a call to google dictionary api, and get the meaning
-                var ajax = new XMLHttpRequest();
-                ajax.onreadystatechange	= handleResponse;
-                ajax.open("GET","http://www.google.com/dictionary/json?callback=process&sl=en&tl=en&restrict=pr,de&client=te&q=" + word,true);
-                ajax.send();
+                SMARTREAD.services.CallService.makeRequest('GET', "/dictionary/" + word, null, function(result){
+                    if(result.status)
+                        callback(result.result);
+
+                    else
+                        callback(null);
+                });
             }
         },
 

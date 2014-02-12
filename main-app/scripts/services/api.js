@@ -23,6 +23,16 @@ api.factory('userService', function($http, serverOptions) {
     }
 });
 
+api.factory('dictionaryService', function($http, serverOptions) {
+    return {
+        definition : function(word, callback){
+            $http({method: 'GET', url: serverOptions.getUrl() + '/dictionary/' + word}).success(function(response, status, headers, config) {
+                callback(response.result);
+            });
+        }
+    }
+});
+
 api.factory('activityService', function($http, serverOptions) {
     return {
 
