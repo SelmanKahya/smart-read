@@ -3,15 +3,16 @@ mainApp.controller('LoginCtrl', function ($scope, $http, $timeout, $location, me
     // first logout the current user even if user already logged in
     session.end(function(){});
 
+    // initially no errors, status is processing
+    $scope.login_error = "";
+    $scope.processing = false;
+
     // login button click event
     $scope.login = function(){
 
         if($scope.loginForm.$invalid)
             return;
 
-        // after clicking on login button,
-        // initially no errors, status is processing
-        $scope.error = null;
         $scope.processing = true;
 
         member.login($scope.user, function(result, response){
@@ -39,13 +40,13 @@ mainApp.controller('LoginCtrl', function ($scope, $http, $timeout, $location, me
             else {
                 if(response){
                     $scope.user = null;
-                    $scope.error = "Wrong credentials. Please check your username and password!";
+                    $scope.login_error = "Wrong credentials. Please check your username and password!";
                     $scope.processing = false;
                 }
 
                 else {
                     $scope.user = null;
-                    $scope.error = "Server is not available, please try again later.";
+                    $scope.login_error = "Server is not available, please try again later.";
                     $scope.processing = false;
                 }
             }
