@@ -1,6 +1,6 @@
 mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $modal, $route,
-                                                   $location, lookupService, imageSearchService, $timeout, wordLookupService,
-                                                   user, userService) {
+                                                   $location, dictionaryService, imageSearchService, $timeout, wordLookupService,
+                                                   user, userService, $sce) {
 
     // status results, handling front-end components
     $scope.flags = {
@@ -59,16 +59,21 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
             $location.path('/word-lookup');
     }
 
+    $scope.getSafeUrl = function (url){
+        return $sce.trustAsResourceUrl(url);
+    }
+
     $scope.getDefinition = function(){
-        lookupService.wordLookup($scope.quiz.word.word_lookup_word, function(result){
+        var word = $scope.quiz.word.word_lookup_word;
+        dictionaryService.definition(word, function(result){
             $scope.quiz.word.lookupResult = result;
             $scope.quiz.word.lookupResult.listen = function(){
                 if($scope.quiz.word.lookupResult.sound){
-                angular.element('#lookup-listen-audio').get(0).load();
-                angular.element('#lookup-listen-audio').get(0).play();
+                    angular.element('#lookup-listen-audio').get(0).load();
+                    angular.element('#lookup-listen-audio').get(0).play();
                 }
             }
-        });
+        })
     }
 
     $scope.getDefinition();
