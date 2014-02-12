@@ -1,23 +1,12 @@
 {
 
-    "name": "SmartRead",
-    "description": "Read in a smart way.",
-    "version": "0.0.1",
-    "default_locale" : "en_US",
     "manifest_version": 2,
-    "minimum_chrome_version": "14",
+    "name": "SmartRead - E-book Reader",
+    "short_name": "SmartRead",
+    "version": "0.0.1",
 
-    "content_security_policy": "script-src 'self' 'unsafe-eval'  http://localhost https://ssl.google-analytics.com https://www.google.com; object-src 'self';",
-
-    "app": {
-        "launch": {
-            "local_path": "main-app/index.html"
-        }
-    },
-
-    "background" : {
-        "page": "background/background.html"
-    },
+    "default_locale" : "en_US",
+    "description": "Read in a smart way.",
 
     "icons": {
         "16": "icons/small.png",
@@ -25,23 +14,31 @@
         "128": "icons/large.png"
     },
 
+    "minimum_chrome_version": "14",
+
+    "content_security_policy": "script-src 'self' 'unsafe-eval'  http://localhost https://ssl.google-analytics.com https://www.google.com; object-src 'self';",
+
+    "app": {
+        "launch": {
+            "local_path": "main-app/index.html"
+        },
+
+        "content_scripts": [
+            {
+                "run_at": "document_idle",
+                "matches": ["http://*/*"],
+                "js": ["lib/jquery-1.7.1.min.js", "background/hijack-ebooks.js"]
+            }
+        ]
+    },
+
+    "background" : {
+        "page": "background/background.html"
+    },
+
     "permissions": [
         "storage",
-        "contextMenus",
-        "tabs",
-        "http://*/",
-        // app -------------
-        "https://ssl.gstatic.com/",
-        "https://www.googleapis.com/",
-        "https://accounts.google.com/"
-    ],
-
-    "content_scripts": [
-        {
-            "run_at": "document_idle",
-            "matches": ["http://*/*"],
-            "js": ["lib/jquery-1.7.1.min.js", "background/hijack-ebooks.js"]
-        }
+        "contextMenus"
     ],
 
     "options_page": "views/library.html#options",
