@@ -1,6 +1,6 @@
 <div ng-controller="HeaderCtrl">
     <div ng-show="user" class="pull-right">
-        <span></span>Hello {{user.user_first_name}} {{user.user_last_name}}, <a ng-click="logout()">Logout</a>
+        <span></span>Hello {{user.user_first_name}} {{user.user_last_name}}, <a href="#/" ng-click="logout()">Logout</a>
     </div>
     <div class="header-div">
         <a class="header-logo" href="#/" target="_self">
@@ -34,7 +34,7 @@
                     <ul class="nav pull-right">
                         <li>
                             <button ng-disabled="!user" style="margin-top:7px;" class="btn btn-small btn-info" ng-click="startReading();">
-                                <span ng-show="!user" tooltip-html-unsafe="{{'You must log-in to start reading!'}}">Start Reading &rsaquo;&rsaquo;</span>
+                                <span ng-show="!user" tooltip="{{'You must log-in to start reading!'}}">Start Reading &rsaquo;&rsaquo;</span>
                                 <span ng-show="user">Start Reading &rsaquo;&rsaquo;</span>
                             </button>
                         </li>

@@ -1,9 +1,16 @@
 <div class="container">
+
+    <div class="row" ng-show="processing" >
+        <div style="margin-top: 40px; text-align: center; font-weight: bold;" class="container-middle ">
+            Please wait..
+        </div>
+    </div>
+
     <div class="row" ng-hide="processing" >
-        <div ng-show="error" style="width: 50%; margin: 20px auto; padding: 20px; background-color: rgb(223, 102, 83); color: white; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;">
+        <div ng-if="login_error" style="width: 50%; margin: 20px auto; padding: 20px; background-color: rgb(223, 102, 83); color: white; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;">
             Error occured:
             <ul>
-                <li>{{error}}</li>
+                <li>{{login_error}}</li>
             </ul>
         </div>
         <div class="cont-middle" >
@@ -13,6 +20,7 @@
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                      alt="">
                 <form class="form-signin" name="loginForm">
+                    <!--<input ng-model="user.username" class="form-control" placeholder="Email" type="text" required autofocus>-->
                     <input ng-model="user.username" class="form-control" placeholder="Email" type="email" required autofocus>
                     <input type="password" class="form-control" ng-model="user.password" placeholder="Password" required>
                     <button data-ng-disabled="loginForm.$invalid" ng-click="login()" class="btn btn-large btn-primary btn-block">
@@ -22,11 +30,5 @@
             </div>
         </div>
     </div>
-    <div class="row" ng-show="processing" >
-        <div style="margin-top: 40px; text-align: center; font-weight: bold;" class="container-middle ">
-            Please wait..
-        </div>
-    </div>
 </div>
-
 <br/><br/>

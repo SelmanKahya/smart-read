@@ -191,3 +191,8 @@ body {
 .wrong_answer{
     background-color: #FF9898;
 }
+
+.navbar li:hover {
+    cursor: pointer;
+    cursor: hand;
+}

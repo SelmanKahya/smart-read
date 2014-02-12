@@ -69,7 +69,7 @@
                     <a ng-click="quiz.word.lookupResult.listen()"><b>Listen</b> <img title="Listen" alt="Listen" src="/lib/jquery-ui/listen.png"/></a>
                 </span>
             </span> <br/>
-            <audio id="lookup-listen-audio" src="{{quiz.word.lookupResult.sound}}"></audio>
+            <audio id="lookup-listen-audio" ng-src="{{getSafeUrl(quiz.word.lookupResult.sound)}}"></audio>
             <br/>{{quiz.word.lookupResult.primary_means[0]}}
         </div>
     </div>
