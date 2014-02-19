@@ -1,8 +1,8 @@
 {
 
     "manifest_version": 2,
-    "name": "SmartRead - E-book Reader",
-    "short_name": "SmartRead",
+    "name": "Smart-Read E-book Reader",
+    "short_name": "Smart-Read",
     "version": "0.0.1",
 
     "default_locale" : "en_US",

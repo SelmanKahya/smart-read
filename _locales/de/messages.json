@@ -6,7 +6,7 @@
     "message": "A reader for EPUB3 books."
   },
   "i18n_readium_library" : {
-    "message" : "SmartRead Library"
+    "message" : "Smart-Read Library"
   },
   "i18n_readium_options" : {
     "message" : "Readium Options:"

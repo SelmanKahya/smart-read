@@ -6,7 +6,7 @@
     "message": "A reader for EPUB3 books."
   },
   "i18n_readium_library" : {
-    "message" : "SmartRead Library"
+    "message" : "Smart-Read Library"
   },
   "i18n_readium_options" : {
     "message" : "Readium Options:"
@@ -81,7 +81,7 @@
     "message" : "Are you sure you want to permanently delete "
   },
   "i18n_add_book_to_readium_library" : {
-    "message" : "Add Book To SmartRead Library:"
+    "message" : "Add Book To Smart-Read Library:"
   },
   "i18n_add_book" : {
     "message" : "Add Book"
