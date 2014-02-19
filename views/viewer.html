@@ -4,7 +4,7 @@
 
 		<meta charset="UTF-8">
 
-		<title>SmartRead</title>
+		<title>E-Book Reader | Smart-Read</title>
 
 		<!-- Le styles -->
 		<link rel="stylesheet" type="text/css" href="/css/viewer_manifest.css">
@@ -19,16 +19,15 @@
 
 			<div class="navbar-inner" id="top-bar">
 				<div class="container" style="width: 100%">
-					<a title="Readium Info" accesskey="i" class="brand" data-toggle="modal" href="#readium-info" id='bar-logo' role="button">
-						<h2 id="logo-replace">Readium</h2>
+					<a title="Smart-Read" accesskey="i" class="brand" href="/main-app/index.html" id='bar-logo'>
+						<h2 id="logo-replace">Smart-Read Home Page</h2>
 					</a>
 
 					<ul class="nav pull-right">
 						<li class="divider-vertical stubby"></li>
 						<li class="smartread">
 							<a title="SmartRead Home" href="/main-app/index.html" id="row-view-btn" role="button">
-								<img style="margin-right: 7px;" src="/icons/36px-white.png" class="small"/ alt=""/>
-								<span>SmartRead Home</span>
+								<span style="line-height: 36px;">Back to Home Page</span>
 							</a>
 						</li>
 						<li class="divider-vertical stubby"></li>
@@ -239,6 +238,7 @@
 
             #lookup-dialog {
                 font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                font-size: 14px;
             }
 
             .imgWrapper img{
@@ -247,6 +247,10 @@
                 top: 30px;
                 max-width: 100px;
                 max-height: 90px;
+            }
+
+            #lookup-definition {
+                line-height: 22px;
             }
         </style>
 
@@ -264,17 +268,15 @@
 
         <!-- word lookup dialog html -->
         <div id="lookup-dialog" title="Word Lookup">
-            <h1>Word: <span id="lookup-word"></span>
-            <span style="font-size: 50%;" >(<span id="lookup-word-type"></span>)</span></h1>
-            <span id="lookup-pronunciation-area">
-                <b>Pronunciation:</b>
-                <span id="lookup-pronunciation"></span>
-            </span>
-            <a href="#" id="lookup-listen">
-                | Listen <img title="Listen" alt="Listen" src="/lib/jquery-ui/listen.png"/>
-            </a> <hr>
-            <p id="lookup-definition"></p>
-            <div id="keyword-image"></div>
+            <div  style="height: 95px;">
+                <h2>> <span id="lookup-word"></span>
+                <span style="font-size: 50%;" >(<span id="lookup-word-type"></span>)</span></h2>
+            </div>
+            <hr>
+            <span id="lookup-definition"></span>
+            <div class="rotator_wl">
+                <div id="keyword-image"></div>
+            </div>
         </div>
 
         <!--
