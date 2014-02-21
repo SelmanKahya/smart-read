@@ -27,15 +27,9 @@ api.factory('dictionaryService', function($http, serverOptions) {
     return {
         definition : function(word, callback){
             $http({method: 'GET', url: serverOptions.getUrl() + '/dictionary/' + word}).success(function(response, status, headers, config) {
-                callback(response.result);
+                callback(response);
             });
         }
-    }
-});
-
-api.factory('activityService', function($http, serverOptions) {
-    return {
-
     }
 });
 
@@ -49,6 +43,11 @@ api.factory('wordLookupService', function($http, serverOptions) {
             }).success(function(data, status, headers, config) {
                     callback(true);
                 });
+        },
+        delete : function(id, callback){
+            $http({method: 'DELETE', url: serverOptions.getUrl() + '/word-lookup/' + id}).success(function(response, status, headers, config) {
+                callback(response);
+            });
         }
     }
 });
@@ -71,17 +70,6 @@ api.factory('member', function($http, serverOptions) {
             $http({
                 url: serverOptions.getUrl() + '/member/logout',
                 method: "POST"
-            }).
-                success(function(response) {
-                    callback(true, response);
-                }).error(function(response){
-                    callback(false, response);
-                });
-        },
-        isLoggedin : function(callback){
-            $http({
-                url: serverOptions.getUrl() + '/member/loggedin',
-                method: "GET"
             }).
                 success(function(response) {
                     callback(true, response);
