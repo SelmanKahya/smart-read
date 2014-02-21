@@ -51,19 +51,19 @@ $(document).ready(function(){
         autoOpen: false,
         show: {
             effect: "blind",
-            duration: 100
+            duration: 500
         },
         hide: {
             effect: "blind",
-            duration: 100
+            duration: 500
         },
-
-        width: 700,
-        height: 500,
-        modal: true,
         close: function() {
-            $("#lookup-listen-audio").remove();
-        }
+            $("#keyword-image").html('');
+            clearInterval(IMG_TIMER);
+        },
+        width: 700,
+        height: 350,
+        modal: true
     });
 
     // called when user double clicks on something
@@ -82,46 +82,60 @@ $(document).ready(function(){
 
     // open dialog window after getting the meaning of the double clicked word
     var showDialog = function(result){
-        if(result.primary_means){
+
+        var resultArray;
+
+        try {
+            resultArray = eval(result);
+        } catch (e) {}
+
+        if(resultArray && resultArray.length > 0){
+
+            var firstResult = resultArray[0];
 
             // remove previous picture
             $("#keyword-image").html('');
 
             // dialog elements
-            $("#lookup-word").html(result.word);
-            $("#lookup-word-type").html(result.type);
-            $("#lookup-definition").html(result.primary_means[0]);
-            $("#lookup-pronunciation").html(result.pronunciation);
+            $("#lookup-word").html(firstResult.word);
+            $("#lookup-word-type").html(firstResult.partOfSpeech);
+
+            var definitionsString = resultArray.length == 1 ? "<b>Definition:</b> <br/>" :"<b>Definitions:</b><br/>";
+
+            for(var i= 0; i < resultArray.length; i++)
+                definitionsString += (i+1) + ". " + resultArray[i].text + "<br/>";
+
+            $("#lookup-definition").html(definitionsString);
+
+
             $("#lookup-dialog").dialog( "open" );
 
-            // check if there is a pronunciation
-            if(result.pronunciation)
-                $("#lookup-pronunciation-area").css("display", "inline");
-            else {
-                $("#lookup-pronunciation-area").css("display", "none");
-            }
+            notifyServer(firstResult.word);
 
-            // check if there is a sound of the word
-            // IF there is no sound, then don't show listen button
-            if(result.sound){
-                // create audio element
-                $("#lookup-listen").css("display", "inline");
-                $("#lookup-listen").append('<audio id="lookup-listen-audio" autoplay="autoplay" src="' + result.sound + '"></audio>');
-                $('#lookup-listen').click(function() {$("#lookup-listen-audio").get(0).play();});
-            } else{
-                $("#lookup-listen").css("display", "none");
-            }
-
-            notifyServer(result.word);
-
-            SMARTREAD.services.ImageService.getImage(result.word, function(results){
+            SMARTREAD.services.ImageService.getImage(firstResult.word, function(results){
                 if(results.length > 1){
-                    var result = results[0];
-                    var imgClass = 'imgWrapper';
-                    var imgTitle = result.titleNoFormatting;
-                    var imgSource =  result.tbUrl;
 
-                    $("#keyword-image").append('<div class="' + imgClass + '"><img title="' + imgTitle + '" src="' + imgSource + '"/></div>');
+                    for(var i= 0; i < results.length; i++) {
+                        var result = results[i];
+                        var imgClass = 'imgWrapper';
+                        var imgTitle = result.titleNoFormatting;
+                        var imgSource =  result.tbUrl;
+                        $("#keyword-image").append('<div class="' + imgClass + '"><img title="' + imgTitle + '" src="' + imgSource + '"/></div>');
+                    }
+
+                    // change image in every X secs:
+                    var $rotator = $(".rotator_wl");
+                    $rotator.find("img:gt(0)").hide();
+                    IMG_TIMER = setInterval(Rotate, 5000);
+
+                    function Rotate() {
+                        var $current = $rotator.find("img:visible");
+                        var $set = $rotator.find("img");
+                        var $next = $set.eq(($set.index($current)+1) % $set.length);
+                        if ($next.length == 0) $next = $rotator.find("img:eq(0)");
+                        $current.hide();
+                        $next.show();
+                    }
                 }
             });
         }
