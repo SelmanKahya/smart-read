@@ -9,22 +9,29 @@
     <div ng-show="quiz.status == flags.STATUSES.FINISHED">
         <p style="margin-top: 25px; text-align:  center; ">
         <h1>Finished!</h1> <br/>
-        <p>Hopefully, you know meanings of the all words now.</p>
+        <p>Thank you for playing the word quiz game. Hopefully, you know meanings of the all words now. <a href="#/word-lookup">Go back to Word Look-up page >></a></p>
         </p>
     </div>
 
     <div ng-show="quiz.status == flags.STATUSES.ONGOING">
 
         <div ng-show="quiz.step == flags.STEPS.QUESTION" style="margin-top: 10px; text-align: center">
-            <h4>Definition: </h4>
-            <span>{{quiz.word.lookupResult.primary_means[0]}}</span> <br/>
+
+            <div style="text-align: left;">
+                <h4>Definition: </h4>
+                <ol>
+                    <li data-ng-repeat="definition in quiz.word.lookupResult">
+                        {{ definition.text }}
+                    </li>
+                </ol>
+            </div>
 
             <h5 style="margin-top: 35px;">Guess the word: </h5>
             <input type="text" ng-model="quiz.answer.guess" ng-required="true" style="width: 30%;"/>
 
             <div style="margin-top: 15px; text-align:  center; ">
                 <div ng-show="quiz.hint.status == flags.HINT.INACTIVE">
-                    <a ng-click="giveHint()">Give me a hint</a> <br><br>
+                    <a ng-click="giveHint()" style="cursor: pointer;">Give me a hint</a> <br><br>
                 </div>
 
                 <div ng-show="quiz.hint.status == flags.HINT.LOADING">
@@ -33,10 +40,12 @@
 
                 <div ng-show="quiz.hint.status == flags.HINT.SHOWING" style="margin-bottom: 20px;">
                     <span ng-repeat="image in quiz.hint.images">
-                        <img style="max-width: 100px; max-height: 150px; margin-right: 15px;" src="{{ image.url }}"/>
+                        <img style="max-width: 100px; max-height: 150px; margin-right: 15px;" ng-src="{{ image.tbUrl }}"/>
                     </span>
                 </div>
                 <button ng-click="showResult()" ng-disabled="!quiz.answer.guess" class="btn btn-primary">See Result</button>
+                <button ng-click="nextQuestion()" class="btn">Skip ></button>
+
             </div>
 
         </div>
@@ -59,18 +68,15 @@
 
             <div style="margin-top: 40px;">
                 <span class="pull-right">Lookup Times: {{quiz.word.word_lookup_count}} </span>
-                <h4>About the word</h4>
+                <h4>About the word: {{quiz.word.word_lookup_word}}</h4>
             </div>
             <hr/>
-            <span>
-                <b>Pronunciation:</b> {{quiz.word.lookupResult.pronunciation}}
-                <span class="pull-right">
-                    <b>Type:</b> {{quiz.word.lookupResult.type}} |
-                    <a ng-click="quiz.word.lookupResult.listen()"><b>Listen</b> <img title="Listen" alt="Listen" src="/lib/jquery-ui/listen.png"/></a>
-                </span>
-            </span> <br/>
-            <audio id="lookup-listen-audio" ng-src="{{getSafeUrl(quiz.word.lookupResult.sound)}}"></audio>
-            <br/>{{quiz.word.lookupResult.primary_means[0]}}
+            <h4>Definition: </h4>
+            <ol>
+                <li data-ng-repeat="definition in quiz.word.lookupResult">
+                    {{ definition.text }} <i>( {{definition.partOfSpeech}} )</i>
+                </li>
+            </ol>
         </div>
     </div>
 </div>
