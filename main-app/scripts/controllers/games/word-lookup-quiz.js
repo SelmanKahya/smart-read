@@ -1,6 +1,6 @@
 mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $modal, $route,
                                                    $location, dictionaryService, imageSearchService, $timeout, wordLookupService,
-                                                   user, userService, $sce) {
+                                                   user, userService, $sce, utilityService) {
 
     // status results, handling front-end components
     $scope.flags = {
@@ -35,28 +35,37 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
         }
     };
 
-    // init variables
-    var words = $rootScope.words;
-    $rootScope.words = null;
+    $scope.init = function(){
 
-    // if doesn't have the words in rootScope, then get all word-lookups from the server
-    if(!words){
-        // get user word-lookups
-        userService.wordLookups(function(result){
-            $scope.quiz.word = result[0];
-            $scope.quiz.words = result;
+        // init variables
+        var words = $rootScope.words;
+        $rootScope.words = null;
 
-            if($scope.quiz.words.length == 0)
-                $location.path('/word-lookup');
-        });
+        // if doesn't have the words in rootScope, then get all word-lookups from the server
+        if(!words){
+            // get user word-lookups
+            userService.wordLookups(function(result){
+                var shuffledWords = utilityService.shuffle(result);
+                $scope.quiz.word = shuffledWords[0];
+                $scope.quiz.words = shuffledWords;
+                $scope.startGame();
+            });
+        }
+
+        else {
+            var shuffledWords = utilityService.shuffle(words);
+            $scope.quiz.word = shuffledWords[0];
+            $scope.quiz.words = shuffledWords;
+            $scope.startGame();
+        }
     }
 
-    else {
-        $scope.quiz.word = words[0];
-        $scope.quiz.words = words;
+    $scope.startGame = function(){
 
         if($scope.quiz.words.length == 0)
             $location.path('/word-lookup');
+
+        $scope.getDefinition();
     }
 
     $scope.getSafeUrl = function (url){
@@ -66,23 +75,21 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
     $scope.getDefinition = function(){
         var word = $scope.quiz.word.word_lookup_word;
         dictionaryService.definition(word, function(result){
-            $scope.quiz.word.lookupResult = result;
-            $scope.quiz.word.lookupResult.listen = function(){
-                if($scope.quiz.word.lookupResult.sound){
-                    angular.element('#lookup-listen-audio').get(0).load();
-                    angular.element('#lookup-listen-audio').get(0).play();
-                }
+            if(result.status){
+
+                var response;
+
+                try {
+                    response = eval(result.result);
+                } catch(e) {}
+
+                $scope.quiz.word.lookupResult = response;
             }
         })
     }
 
-    $scope.getDefinition();
-
     // show meaning
     $scope.showResult = function(){
-
-        // play the pronunciation
-        $scope.quiz.word.lookupResult.listen();
 
         // check if the answer is correct
         if($scope.quiz.word.word_lookup_word == $scope.quiz.answer.guess)
@@ -158,4 +165,6 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
     $scope.finish = function () {
         $location.path('/word-lookup');
     };
+
+    $scope.init();
 });
