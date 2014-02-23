@@ -1,4 +1,4 @@
-mainApp.controller('WordLookupCtrl', function ($scope, $rootScope, $location, $http, user, userService) {
+mainApp.controller('WordLookupCtrl', function ($scope, $rootScope, $location, $http, utilityService, user, userService, wordLookupService) {
 
     // get books that user read
     userService.books(function(result){
@@ -10,9 +10,28 @@ mainApp.controller('WordLookupCtrl', function ($scope, $rootScope, $location, $h
         $scope.words = result;
     });
 
-	// change active book in the scope
+    // change active book in the scope
     $scope.selectBook = function(book){
         $scope.selectedBook = book;
+    }
+
+
+    // delete particular word lookup data
+    $scope.deleteWord = function(word){
+        var header = "Delete Word Look-up";
+        var message = "After deleting this word look-up data, we won't be able to use it while analyzing your reading activity. Are you sure you want to do this?";
+        utilityService.yesNoModal(header, message, function(result) {
+            if(result){
+                wordLookupService.delete(word.word_lookup_id, function(result){
+                    if(result.status){
+                        var i = $scope.words.indexOf(word);
+                        if(i != -1) {
+                            $scope.words.splice(i, 1);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     // return lookup-words from the selected book
@@ -24,14 +43,13 @@ mainApp.controller('WordLookupCtrl', function ($scope, $rootScope, $location, $h
             return $scope.words;
     }
 
-    // return no quiz taken words from the selected book
-    $scope.getNotQuizTakenWords = function(){
-        return JSPath.apply('.{.word_lookup_quiz_result != 1}', $scope.getSelectedBookWords());
-    }
-
     // start taking the quiz
     $scope.startWordLookupQuiz = function() {
-        $rootScope.words = $scope.getNotQuizTakenWords();
-        $location.path('/word-lookup-quiz');
+        var words = $scope.getSelectedBookWords();
+
+        if(words.length > 0){
+            $rootScope.words = words;
+            $location.path('/word-lookup-quiz');
+        }
     };
 });
