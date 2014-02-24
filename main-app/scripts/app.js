@@ -1,5 +1,9 @@
 'use strict';
 
+// var server = {mode: 'local', url: 'http://localhost:3000'};
+var server = {mode: 'server', url: 'http://smart-read-api.aws.af.cm'};
+chrome.storage.local.set({'server': server}, function(){});
+
 var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'service.analysis', 'service.utility', 'service.options', 'ui.bootstrap', 'highcharts-ng', 'ngCookies', 'ngRoute']);
 
 mainApp.config(function ($routeProvider, $httpProvider) {
@@ -16,8 +20,14 @@ mainApp.config(function ($routeProvider, $httpProvider) {
                 },
                 // Error: check the error status to get only the 401
                 function(response) {
+                    var requestedUrl = response.config.url;
+
                     if (response.status === 401)
                         $location.url('/login');
+
+                    else if(response.status === 404 && requestedUrl.indexOf(server.url) != -1 )
+                        $location.url('/error/server-down');
+
                     return $q.reject(response);
                 }
             );
@@ -75,11 +85,14 @@ mainApp.config(function ($routeProvider, $httpProvider) {
             controller: 'RegisterCtrl'
         })
 
+        .when('/error/:type', {
+            templateUrl: 'views/error.html',
+            controller: 'ErrorCtrl'
+        })
 
         .otherwise({
             redirectTo: '/'
         });
-
 });
 
 // EXTEND Classes here
@@ -94,9 +107,6 @@ mainApp.config(function ($routeProvider) {
 });
 
 mainApp.run(function ($rootScope) {
-    // var server = {mode: 'local', url: 'http://localhost:3000'};
-    var server = {mode: 'server', url: 'http://smart-read-api.aws.af.cm'};
-    chrome.storage.local.set({'server': server}, function(){});
     $rootScope.server = server;
 });
 
