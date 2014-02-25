@@ -1,0 +1,16 @@
+Read in a smart way.
+SmartRead is an open-source E-book Reader application. It is completely free and will always be.
+
+You can upload books in ePub format which works for many devices such as iBooks, Nook, Kobo, Sony Reader, and Adobe Digital Editions. 
+
+While reading your favorite e-books, SmartRead will collect data to analyze your activity, and offer you best services including various features and games to improve your reading comprehension.
+
+Through this app, it is planned to allow the users of similar reading level and interest to share their thoughts and participate to play various word games to challenge each other in order to increase their reading comprehension.
+
+This application is not just for only grown-ups! E-book are also recognized by the usefulness for kids. Features that our system will offer can also be used by parents to help their kids to grow reading skill in a systematic and fun way. 
+
+Kids can take word quizzes and challenge with other kids in a similar reading level. Parents will be provided with the average minutes per page for specific book, statistics from kids with comparable reading level and the words that their child’s word look up while reading.
+
+To see all the features, just install this application and start testing out now! We thank you all your kind reviews in advance and hope you will enjoy the application. For more info visit our webpage or contact us at smartreadproject@gmail.com.
+
+Please note that SmartRead is primarily based on Readium (TM)(Ebook reader, ePub reader), a project of the International Digital Publishing Forum (IDPF). It is also an open-source project, you can learn more on www.readium.org.
