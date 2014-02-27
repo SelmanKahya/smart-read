@@ -1,3 +1,27 @@
+#smart_link_activity, #smart_link_games {
+    line-height: 36px;
+    background-color: #04aeda;
+    padding: 5px 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+#smart_link_games {
+    background-color: #757575;
+}
+
+#smart_link_activity:hover{
+    background-color: white;
+    color: #04aeda;
+}
+
+#smart_link_games:hover {
+    background-color: white;
+    color: #757575;
+}
+
 .smartread{
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
