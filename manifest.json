@@ -19,7 +19,7 @@
 
     "app": {
         "launch": {
-            "local_path": "main-app/index.html"
+            "local_path": "views/library.html"
         },
 
         "content_scripts": [
