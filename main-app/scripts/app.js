@@ -1,7 +1,7 @@
 'use strict';
 
-// var server = {mode: 'local', url: 'http://localhost:3000'};
-var server = {mode: 'server', url: 'http://smart-read-api.aws.af.cm'};
+var server = {mode: 'local', url: 'http://localhost:3000'};
+// var server = {mode: 'server', url: 'http://smart-read-api.aws.af.cm'};
 chrome.storage.local.set({'server': server}, function(){});
 
 var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'service.analysis', 'service.utility', 'service.options', 'ui.bootstrap', 'highcharts-ng', 'ngCookies', 'ngRoute']);
@@ -38,14 +38,14 @@ mainApp.config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;
 
     $routeProvider
-        .when('/', {
-            templateUrl: 'views/main.html',
-            controller: 'MainCtrl',
-            resolve: { user: mainApp.resolveUser }
-        })
         .when('/dashboard', {
             templateUrl: 'views/dashboard.html',
             controller: 'DashboardCtrl',
+            resolve: { user: mainApp.resolveUser }
+        })
+        .when('/games', {
+            templateUrl: 'views/games.html',
+            controller: 'GamesCtrl',
             resolve: { user: mainApp.resolveUser }
         })
         .when('/contact', {
@@ -60,14 +60,14 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         })
 
 
-        .when('/word-lookup-quiz', {
+        .when('/games/word-lookup-quiz', {
             templateUrl: 'views/games/word-lookup-quiz.html',
             controller: 'WordLookupQuizCtrl',
             resolve: { user: mainApp.resolveUser }
         })
-        .when('/word-game', {
-            templateUrl: 'views/games/word-game.html',
-            controller: 'WordLookupQuizOnlineCtrl',
+        .when('/games/synonyma', {
+            templateUrl: 'views/games/synonyma.html',
+            controller: 'SynonymaCtrl',
             resolve: { user: mainApp.resolveUser }
         })
 
@@ -91,7 +91,7 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         })
 
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/dashboard'
         });
 });
 
