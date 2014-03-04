@@ -18,18 +18,9 @@
                 </a>
                 <div class="nav-collapse collapse navbar-responsive-collapse" ng-controller="HeaderCtrl">
                     <ul class="nav">
-                        <li ng-class="{active: ($location.path() == '/') }"><a href="#/">Home</a></li>
-                        <li ng-class="{active: ($location.path() == '/dashboard') }"><a href="#/dashboard">Dashboard</a></li>
-                        <li ng-class="{active: ($location.path() == '/word-lookup') }"><a href="#/word-lookup">Word-Lookups</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle">Games <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#/word-lookup-quiz">Word-Lookup Quiz</a></li>
-                                <li class="divider"></li>
-                                <li class="nav-header">Online Games</li>
-                                <li><a href="#/word-game">Word Game</a></li>
-                            </ul>
-                        </li>
+                        <li ng-class="{active: ($location.path() == '/dashboard') }"><a href="#/dashboard"> My Activity</a></li>
+                        <li ng-class="{active: ($location.path() == '/word-lookup') }"><a href="#/word-lookup">Word Look-ups</a></li>
+                        <li ng-class="{active: ($location.path() == '/games') }"><a href="#/games">Games</a></li>
                     </ul>
                     <ul class="nav pull-right">
                         <li>
