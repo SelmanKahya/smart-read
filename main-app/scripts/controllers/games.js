@@ -1,4 +1,4 @@
-mainApp.controller('ContactCtrl', function ($scope) {
+mainApp.controller('GamesCtrl', function ($scope) {
 
 
 
