@@ -102,10 +102,6 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
         $scope.quiz.word.word_lookup_quiz_result = $scope.quiz.answer.result ? 1 : 0;
         wordLookupService.save($scope.quiz.word, function(result) {});
 
-        // reset hint
-        $scope.quiz.hint.images = [];
-        $scope.quiz.hint.status = $scope.flags.HINT.INACTIVE;
-
         // go to result step
         $scope.changeStep($scope.flags.STEPS.RESULT);
     }
@@ -121,7 +117,12 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
     }
 
     // user clicks on correct or wrong
-    $scope.nextQuestion = function(answer){
+    $scope.nextQuestion = function(){
+
+        // reset hint
+        $scope.quiz.hint.images = [];
+        $scope.quiz.hint.status = $scope.flags.HINT.INACTIVE;
+
         // remove the answer for previous word
         $scope.quiz.answer.guess = '';
 
