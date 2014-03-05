@@ -49,7 +49,7 @@ mainApp.controller('WordLookupCtrl', function ($scope, $rootScope, $location, $h
 
         if(words.length > 0){
             $rootScope.words = words;
-            $location.path('/word-lookup-quiz');
+            $location.path('/games/word-lookup-quiz');
         }
     };
 });
