@@ -96,8 +96,10 @@ SMARTREAD = new function() {
 
                     var user = result.user;
 
-                    if(!user)
-                        alert('Cannot tracking reading activity. Please log-in from main page to use this application.');
+                    if(!user) {
+                        alert('You should login to use this application. Redirecting you to sign-in page..');
+                        window.location = "/main-app/index.html#/login";
+                    }
 
                     else {
                         chrome.storage.local.get('server', function (result) {
