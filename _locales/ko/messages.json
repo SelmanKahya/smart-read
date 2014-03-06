@@ -9,7 +9,7 @@
     "message" : "Readium 라이브러리"
   },
   "i18n_readium_options" : {
-    "message" : "Readium 옵션:"
+    "message" : "Smart-Read 옵션:"
   },
   "i18n_save_changes" : {
     "message" : "변경사항 저장"
