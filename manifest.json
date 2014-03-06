@@ -2,7 +2,7 @@
     "manifest_version": 2, 
     "name": "Smart-Read E-book Reader",
     "short_name": "Smart-Read",
-    "version": "0.0.2",
+    "version": "0.0.3",
 
     "default_locale" : "en_US",
     "description": "Read in a smart way.",
