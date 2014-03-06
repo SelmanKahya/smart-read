@@ -196,3 +196,27 @@ body {
     cursor: pointer;
     cursor: hand;
 }
+
+.games_ul {
+    text-align: center;
+    overflow: auto;
+}
+
+.games_li {
+    list-style-type: none;
+    width: 33%;
+    margin:0px;
+    padding: 0px;
+    float: left;
+}
+
+.games_li a.game_name {
+    font-size: 140%;
+    display: block;
+    margin-bottom: 15px;
+    line-height: 25px;
+}
+
+.games_li a.game_name:hover {
+    text-decoration: none;
+}
