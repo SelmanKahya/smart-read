@@ -33,6 +33,31 @@ api.factory('dictionaryService', function($http, serverOptions) {
     }
 });
 
+api.factory('statsService', function($http, serverOptions) {
+    return {
+        played : function(game, callback){
+            $http({method: 'POST', url: serverOptions.getUrl() + '/games/stats/played/' + game}).success(function(response, status, headers, config) {
+                callback(response);
+            });
+        },
+        getPlayed : function(game, callback){
+            $http({method: 'GET', url: serverOptions.getUrl() + '/games/stats/played/' + game}).success(function(response, status, headers, config) {
+                callback(response);
+            });
+        }
+    }
+});
+
+api.factory('synonymaService', function($http, serverOptions) {
+    return {
+        getQuestions : function(level, count, callback){
+            $http({method: 'GET', url: serverOptions.getUrl() + '/games/synonyma/question/' + level + '/' + count}).success(function(response, status, headers, config) {
+                callback(response);
+            });
+        }
+    }
+});
+
 api.factory('wordLookupService', function($http, serverOptions) {
     return {
         save: function(word, callback){
