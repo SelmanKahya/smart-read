@@ -1,12 +1,13 @@
 mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $modal, $route,
                                                    $location, dictionaryService, imageSearchService, $timeout, wordLookupService,
-                                                   user, userService, $sce, utilityService) {
+                                                   user, userService, $sce, utilityService, statsService) {
 
-    // status results, handling front-end components
+    // status flags, handling front-end components
     $scope.flags = {
         STATUSES:{
             ONGOING:    0,
-            FINISHED:   1
+            FINISHED:   1,
+            NOTSTARTED: 2
         },
         STEPS : {
             QUESTION:   0,
@@ -35,6 +36,8 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
         }
     };
 
+    $scope.quiz.status = $scope.flags.STATUSES.NOTSTARTED;
+
     $scope.init = function(){
 
         // init variables
@@ -45,10 +48,16 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
         if(!words){
             // get user word-lookups
             userService.wordLookups(function(result){
-                var shuffledWords = utilityService.shuffle(result);
-                $scope.quiz.word = shuffledWords[0];
-                $scope.quiz.words = shuffledWords;
-                $scope.startGame();
+                if(result.length == 0){
+                    $location.path('/word-lookup')
+                }
+
+                else {
+                    var shuffledWords = utilityService.shuffle(result);
+                    $scope.quiz.word = shuffledWords[0];
+                    $scope.quiz.words = shuffledWords;
+                    $scope.startGame();
+                }
             });
         }
 
@@ -62,10 +71,15 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
 
     $scope.startGame = function(){
 
+        $scope.quiz.status = $scope.flags.STATUSES.ONGOING;
+
         if($scope.quiz.words.length == 0)
             $location.path('/word-lookup');
 
         $scope.getDefinition();
+
+        // increment game played stat
+        statsService.played('word_quiz', function(response){});
     }
 
     $scope.getSafeUrl = function (url){
@@ -92,7 +106,7 @@ mainApp.controller('WordLookupQuizCtrl', function ($scope, $rootScope, $http, $m
     $scope.showResult = function(){
 
         // check if the answer is correct
-        if($scope.quiz.word.word_lookup_word == $scope.quiz.answer.guess)
+        if($scope.quiz.word.word_lookup_word.toLowerCase() == $scope.quiz.answer.guess.toLowerCase())
             $scope.quiz.answer.result = true;
         else
             $scope.quiz.answer.result = false;

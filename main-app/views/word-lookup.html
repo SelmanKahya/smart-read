@@ -1,27 +1,61 @@
-<div style="line-height: 35px;">
-    <h3>Select book:</h3>
-    <a style="margin-right: 10px;" ng-click="selectBook();"  class="btn btn-small btn-warning">All Books</a>
-    <span ng-repeat="book in books">
-        <a style="margin-right: 10px;" ng-click="selectBook(book);"  class="btn btn-small btn-inverse">{{book.book_name}} </a>
-    </span>
+<div ng-show="getSelectedBookWords().length == 0">
+
+    <div>
+        <h3>First time?</h3> <hr/>
+        <p>You have no word look-ups yet.. Here is how you can do word look-ups while reading an e-book:</p>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <h4>1. Double click on a word</h4><hr/>
+        <p style="text-align: center;"><img style="width: 600px;" src="images/lookup_help_double_click.png" /> </p>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <h4>2. You will see the definition</h4> <hr/>
+        <p style="text-align: center;"><img style="width: 600px;" src="images/lookup_help_dialog.png" /></p>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <h4>3. Play Smart Games!</h4> <hr/>
+        <p>Based on your reading activity and word look-ups, we will provide games that will make you even smarter.</p>
+    </div>
 </div>
 
-<div style="margin-top: 40px;" class="well well-small">
+<div ng-show="getSelectedBookWords().length != 0">
 
-    <h4 style="line-height: 40px;">
-        <span ng-show="selectedBook">Your look-up words from <i>'{{ selectedBook.book_name }}'</i></span>
-        <span ng-show="!selectedBook">Your all look-up words</i></span>
+    <div style="overflow: auto; background-color: #E7F0FF; padding: 10px 15px; margin: 10px 0px 15px; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;">
         <div class="pull-right">
-            <button ng-click="startWordLookupQuiz();" ng-disabled="getNotQuizTakenWords().length == 0" class="btn btn-success"><b><i class=" icon-play-circle icon-white"></i> Play Word Quiz ({{getSelectedBookWords().length}} words)</b></button>
+            Time:
+            <select ng-change="filterTimeChanged()" ng-model="filter.time" style="margin: 0px;">
+                <option value="0">From the beginning</option>
+                <option value="7">Last week</option>
+                <option value="30">Last month</option>
+                <option value="90">Last 3 months</option>
+                <option value="180">Last 6 months</option>
+            </select>
         </div>
-    </h4>
+
+        <div class="pull-right" style="margin-right: 30px;">
+            Filter by Books:
+            <select ng-change="filterBookChanged()" ng-model="filter.book" ng-options="book.book_name for book in books" style="margin: 0px;">
+                <option value="">-- All Books --</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="line-height: 40px; clear: both; overflow: auto">
+        <div class="pull-left" style="font-size: 20px; font-weight: bold;">
+            <span ng-show="selectedBook">Your look-up words from <i>'{{ selectedBook.book_name }}'</i></span>
+            <span ng-show="!selectedBook">Your all look-up words</i></span>
+        </div>
+        <div class="pull-right">
+            <button ng-click="startWordLookupQuiz();" ng-disabled="getSelectedBookWords().length == 0" class="btn btn-success"><b><i class=" icon-play-circle icon-white"></i> Play Word Quiz ({{getSelectedBookWords().length}} words)</b></button>
+        </div>
+    </div>
 
     <hr/>
 
     <div>
-        <span ng-show="!getSelectedBookWords().length">
-            No lookup words yet..
-        </span>
         <div ng-show="getSelectedBookWords().length > 0">
             <table class="table">
                 <thead>
@@ -34,17 +68,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="word in getSelectedBookWords()">
-                        <td>{{word.word_lookup_word}}</td>
-                        <td style='text-align: center;'>{{word.word_lookup_count}}</td>
-                        <td style='text-align: center;'>{{word.word_lookup_quiz_taken | oneZeroToYesNo}}</td>
-                        <td style='text-align: center;'>
-                            <span class="label" ng-class="{true:'label-success', false:'label-important'}[word.word_lookup_quiz_result==1]" ng-show="word.word_lookup_quiz_taken == 1">{{word.word_lookup_quiz_result | oneZeroToSuccessFail}}</span>
-                        </td>
-                        <td style='text-align: center;'>
-                            <button tooltip="{{ 'It will delete this word\'s data: ' + word.word_lookup_word }}" data-ng-click="deleteWord(word)" class="btn btn-danger btn-mini" type="button"><i class="icon-trash icon-white"></i></button>
-                        </td>
-                    </tr>
+                <tr ng-repeat="word in getSelectedBookWords()">
+                    <td>{{word.word_lookup_word}}</td>
+                    <td style='text-align: center;'>{{word.word_lookup_count}}</td>
+                    <td style='text-align: center;'>{{word.word_lookup_quiz_taken | oneZeroToYesNo}}</td>
+                    <td style='text-align: center;'>
+                        <span class="label" ng-class="{true:'label-success', false:'label-important'}[word.word_lookup_quiz_result==1]" ng-show="word.word_lookup_quiz_taken == 1">{{word.word_lookup_quiz_result | oneZeroToSuccessFail}}</span>
+                    </td>
+                    <td style='text-align: center;'>
+                        <button tooltip="{{ 'It will delete this word\'s data: ' + word.word_lookup_word }}" data-ng-click="deleteWord(word)" class="btn btn-danger btn-mini" type="button"><i class="icon-trash icon-white"></i></button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

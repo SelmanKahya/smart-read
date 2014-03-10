@@ -1,14 +1,8 @@
-<div class="modal-header">
-    <h3>
-        Word Quiz
-        <span ng-hide="quiz.status == flags.STATUSES.FINISHED" class="pull-right">{{ quiz.wordCursor + 1}} / {{ quiz.words.length }}</span>
-    </h3>
-</div>
 <div style="margin: 30px 0px 20px;">
 
     <div ng-show="quiz.status == flags.STATUSES.FINISHED">
         <p style="margin-top: 25px; text-align:  center; ">
-        <h1>Finished!</h1> <br/>
+        <h4>Finished!</h4> <br/>
         <p>
             Thank you for playing the word quiz game. Hopefully, you know meanings of the all words now.
             <br/> <br/> <a class="btn btn-success" href="#/games">Go back to games page >></a></p>
