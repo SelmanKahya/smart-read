@@ -11,14 +11,16 @@
                 <img src="images/games_lookup.png" /> <br/>
                 Word Look-up Quiz
             </a>
-            <button class="btn btn-primary" type="button"> <i class=" icon-chevron-right icon-white"></i> Play now!</button>
+            <a href="#/games/word-lookup-quiz" class="btn btn-primary" type="button"> <i class=" icon-chevron-right icon-white"></i> Play now!</a>
+            <p ng-show="stats.synonyma" style="margin-top: 10px; font-size: 80%;">(Total game plays: {{stats.word_quiz}} times)</p>
         </li>
         <li class="games_li">
             <a class="game_name" style="" href="#/games/synonyma">
                 <img src="images/games_synonyma.png" /> <br/>
                 Synonyma
             </a>
-            <button class="btn btn-primary" type="button"> <i class=" icon-chevron-right icon-white"></i> Play now!</button>
+            <a href="#/games/synonyma" class="btn btn-primary" type="button"> <i class=" icon-chevron-right icon-white"></i> Play now!</a>
+            <p ng-show="stats.synonyma" style="margin-top: 10px; font-size: 80%;">(Total game plays: {{stats.synonyma}} times)</p>
         </li>
         <li class="games_li">
             <a class="game_name">
