@@ -59,7 +59,6 @@ $(document).ready(function(){
         },
         close: function() {
             $("#keyword-image").html('');
-            clearInterval(IMG_TIMER);
         },
         width: 700,
         height: 350,
@@ -115,26 +114,17 @@ $(document).ready(function(){
             SMARTREAD.services.ImageService.getImage(firstResult.word, function(results){
                 if(results.length > 1){
 
-                    for(var i= 0; i < results.length; i++) {
+                    // max 3 images
+                    for(var i= 0; i < 3; i++) {
+
+                        if(!results[i])
+                            break;
+
                         var result = results[i];
                         var imgClass = 'imgWrapper';
                         var imgTitle = result.titleNoFormatting;
                         var imgSource =  result.tbUrl;
                         $("#keyword-image").append('<div class="' + imgClass + '"><img title="' + imgTitle + '" src="' + imgSource + '"/></div>');
-                    }
-
-                    // change image in every X secs:
-                    var $rotator = $(".rotator_wl");
-                    $rotator.find("img:gt(0)").hide();
-                    IMG_TIMER = setInterval(Rotate, 5000);
-
-                    function Rotate() {
-                        var $current = $rotator.find("img:visible");
-                        var $set = $rotator.find("img");
-                        var $next = $set.eq(($set.index($current)+1) % $set.length);
-                        if ($next.length == 0) $next = $rotator.find("img:eq(0)");
-                        $current.hide();
-                        $next.show();
                     }
                 }
             });
@@ -144,13 +134,15 @@ $(document).ready(function(){
     var notifyServer = function(keyword){
         if(SMARTREAD.book){
 
+            if(keyword.length > 2){
 
-            var data = {
-                word_lookup_word: keyword,
-                book_name: SMARTREAD.book.name
-            };
+                var data = {
+                    word_lookup_word: keyword,
+                    book_name: SMARTREAD.book.name
+                };
 
-            SMARTREAD.services.CallService.makeRequest('POST', '/word-lookup/', data, function(result){});
+                SMARTREAD.services.CallService.makeRequest('POST', '/word-lookup/', data, function(result){});
+            }
         }
     }
 });
