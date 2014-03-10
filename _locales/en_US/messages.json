@@ -93,7 +93,7 @@
     "message" : "From the web:"
   },
   "i18n_from_local_file" : {
-    "message" : "From Local File:"
+    "message" : "From Local File: (Preferably .epub)"
   },
   "i18n_enter_a_url" : {
     "message" : "Enter a URL to a .epub file"
