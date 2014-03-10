@@ -25,8 +25,15 @@ mainApp.config(function ($routeProvider, $httpProvider) {
                     if (response.status === 401)
                         $location.url('/login');
 
-                    else if(response.status === 404 && requestedUrl.indexOf(server.url) != -1 )
+                    else if(response.status === 500 ){
+                        mainApp.INTERCEPTOR_ERROR = response;
+                        $location.url('/error/internal');
+                    }
+
+                    else if(response.status === 404 && requestedUrl.indexOf(server.url) != -1 ){
+                        mainApp.INTERCEPTOR_ERROR = response;
                         $location.url('/error/server-down');
+                    }
 
                     return $q.reject(response);
                 }
@@ -87,7 +94,8 @@ mainApp.config(function ($routeProvider, $httpProvider) {
 
         .when('/error/:type', {
             templateUrl: 'views/error.html',
-            controller: 'ErrorCtrl'
+            controller: 'ErrorCtrl',
+            resolve: { user: mainApp.resolveUser }
         })
 
         .otherwise({

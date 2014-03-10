@@ -1,6 +1,13 @@
 <div ng-show="type == 'server-down'">
-    <h3>Connection Error</h3><hr/>
+    <h3>Connection Lost</h3><hr/>
     <p>The server encountered a temporary error or couldn't complete your request.</p>
     <p>Please try again in couple of minutes. We are doing our best to fix the issue..</p>
     <a class="btn btn-primary" href="#/dashboard">Try again >></a>
+</div>
+
+<div ng-show="type == 'internal'">
+    <h3>Internal error occurred</h3><hr/>
+    <p>The server encountered a temporary error or couldn't complete your request.</p>
+    <p>Please try again later. We are doing our best to fix the issue..</p>
+    <a class="btn btn-primary" href="#/dashboard">Go back to dashboard >></a>
 </div>
