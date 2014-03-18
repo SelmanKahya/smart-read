@@ -1,7 +1,7 @@
 'use strict';
 
-// var server = {mode: 'local', url: 'http://localhost:3000'};
-var server = {mode: 'server', url: 'http://smart-read-api.aws.af.cm'};
+var server = {mode: 'local', url: 'http://localhost:3000'};
+// var server = {mode: 'server', url: 'http://smart-read-api.aws.af.cm'};
 chrome.storage.local.set({'server': server}, function(){});
 
 var mainApp = angular.module('mainApp', ['service.api', 'service.session', 'service.outsider', 'service.analysis', 'service.utility', 'service.options', 'ui.bootstrap', 'highcharts-ng', 'ngCookies', 'ngRoute']);
@@ -90,6 +90,10 @@ mainApp.config(function ($routeProvider, $httpProvider) {
         .when('/register', {
             templateUrl: 'views/member/register.html',
             controller: 'RegisterCtrl'
+        })
+        .when('/forgot', {
+            templateUrl: 'views/member/forgot.html',
+            controller: 'ForgotCtrl'
         })
 
         .when('/error/:type', {
