@@ -1,0 +1,35 @@
+<div class="container">
+
+    <div class="row" ng-show="processing" >
+        <div style="margin-top: 40px; text-align: center; font-weight: bold;" class="container-middle ">
+            Please wait..
+        </div>
+    </div>
+
+    <div class="row" ng-hide="processing" >
+        <div ng-if="send_error" style="width: 50%; margin: 20px auto; padding: 20px; background-color: rgb(223, 102, 83); color: white; -webkit-border-radius: 6px; -moz-border-radius: 6px; border-radius: 6px;">
+            Error occured:
+            <ul>
+                <li>{{send_error}}</li>
+            </ul>
+        </div>
+        <div ng-show="successful" style="width: 50%; margin: 50px auto; padding: 20px; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; background-color: #baffb7; color: black; text-align: center">
+            Email sent successfully! Please check your mail box. <br/><br/>
+            <a href="#/login" class="btn btn-large btn-success btn-block">Login >></a>
+        </div>
+        <div ng-hide="successful" class="cont-middle" >
+            <h1 class="text-center login-title">Forgot your password?</h1>
+            <span class="text-center new-account">Not a member? <a href="#/register">Create an account &rsaquo;&rsaquo;</a></span>
+            <div class="account-wall">
+                <p style="text-align: center">Please type your registered e-mail address:</p>
+                <form class="form-signin" name="sendForm">
+                    <!--<input ng-model="user.username" class="form-control" placeholder="Email" type="text" required autofocus>-->
+                    <input ng-model="email" class="form-control" placeholder="Email" type="email" required autofocus>
+                    <button style="margin-top: 15px;" ng-click="send()" class="btn btn-large btn-primary btn-block">
+                        Send me a new password!</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br/><br/>
