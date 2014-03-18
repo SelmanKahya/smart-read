@@ -17,8 +17,11 @@ mainApp.controller('SynonymaCtrl', function ($scope, synonymaService, statsServi
 
     $scope.level = 1;
     $scope.status = $scope.flags.STATUSES.STARTING;
-    $scope.questions = {};
     $scope.questions = [];
+    $scope.time_spent = {
+        started: 0,
+        stopped: 0
+    }
 
     $scope.start = function(){
         $scope.status = $scope.flags.STATUSES.LOADING;
@@ -30,6 +33,7 @@ mainApp.controller('SynonymaCtrl', function ($scope, synonymaService, statsServi
                 $scope.question = $scope.questions[$scope.question_index];
                 $scope.status = $scope.flags.STATUSES.PLAYING;
                 $scope.step = $scope.flags.STEPS.QUESTION;
+                $scope.startTimer();
             }
 
             else {
@@ -43,6 +47,7 @@ mainApp.controller('SynonymaCtrl', function ($scope, synonymaService, statsServi
     }
 
     $scope.answer = function(answer, choice){
+        $scope.stopTimer();
 
         $scope.step = $scope.flags.STEPS.RESULT;
 
@@ -53,9 +58,14 @@ mainApp.controller('SynonymaCtrl', function ($scope, synonymaService, statsServi
             $scope.question.result = false;
 
         $scope.question.user_choice = choice;
+
+        // notify server, tell response time for each word
+        var time = $scope.getTimeSpent() / 1000;
+        synonymaService.saveQuestion(answer, time, $scope.question.result, function(response){});
     }
 
     $scope.nextQuestion = function(){
+        $scope.startTimer();
         $scope.question_index++;
 
         if($scope.question_index == $scope.questions.length)
@@ -70,5 +80,17 @@ mainApp.controller('SynonymaCtrl', function ($scope, synonymaService, statsServi
     $scope.finish = function(){
         $scope.question_index++;
         $scope.status = $scope.flags.STATUSES.FINISHED;
+    }
+
+    $scope.startTimer = function(){
+        $scope.time_spent.started = Date.now();
+    }
+
+    $scope.stopTimer = function(){
+        $scope.time_spent.stopped = Date.now();
+    }
+
+    $scope.getTimeSpent = function(){
+        return $scope.time_spent.stopped - $scope.time_spent.started;
     }
 });
