@@ -54,6 +54,22 @@ api.factory('synonymaService', function($http, serverOptions) {
             $http({method: 'GET', url: serverOptions.getUrl() + '/games/synonyma/question/' + level + '/' + count}).success(function(response, status, headers, config) {
                 callback(response);
             });
+        },
+        saveQuestion : function(word, time, result, callback){
+            $http({
+                url: serverOptions.getUrl() + '/games/synonyma/response',
+                method: "POST",
+                data: {
+                    word: word,
+                    time: time,
+                    result: result
+                }
+            }).
+                success(function(response) {
+                    callback(true, response);
+                }).error(function(response){
+                    callback(false, response);
+                });
         }
     }
 });
@@ -107,6 +123,20 @@ api.factory('member', function($http, serverOptions) {
                 url: serverOptions.getUrl() + '/member/register',
                 method: "POST",
                 data: user
+            }).
+                success(function(response) {
+                    callback(true, response);
+                }).error(function(response){
+                    callback(false, response);
+                });
+        },
+        forgot : function(email, callback){
+            $http({
+                url: serverOptions.getUrl() + '/member/forgot',
+                method: "POST",
+                data: {
+                    user_email: email
+                }
             }).
                 success(function(response) {
                     callback(true, response);
