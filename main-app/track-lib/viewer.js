@@ -2,6 +2,8 @@ $(document).ready(function(){
 
     var init = function(){
 
+        // disabling
+        return;
 
         // name of the readium iframe
         // it is dynamically added into current window

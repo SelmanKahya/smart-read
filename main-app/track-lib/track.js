@@ -97,8 +97,8 @@ SMARTREAD = new function() {
                     var user = result.user;
 
                     if(!user) {
-                        alert('You should login to use this application. Redirecting you to sign-in page..');
-                        window.location = "/main-app/index.html#/login";
+                        //alert('You should login to use this application. Redirecting you to sign-in page..');
+                        //window.location = "/main-app/index.html#/login";
                     }
 
                     else {
@@ -185,5 +185,6 @@ SMARTREAD = new function() {
 };
 
 $(document).ready(function(){
-    SMARTREAD.init();
+    // disabling
+    // SMARTREAD.init();
 });
